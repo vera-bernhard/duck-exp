@@ -3,12 +3,20 @@
 
 {% block content %}
   <h2>Code Editor</h2>
-  <form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Run Code</button>
-  </form>
+  <div class="editor-container">
+    <form method="post" action="" class="code-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Run Code</button>
+    </form>
 
-  <!-- Include the Ace editor -->
-  {{ form.media }}
+    <!-- Include the Ace editor -->
+    {{ form.media }}
+
+    {% if output %}
+      <div class="code-editor-output">
+        <pre>{{ output|linebreaksbr }}</pre>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

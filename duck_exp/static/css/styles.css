@@ -1,0 +1,26 @@
+/* static/css/styles.css */
+.code-editor-output {
+  width: 100%; /* Set the output width to 100% */
+  background-color: #1e1e1e; /* Example background color */
+  color: #abb2bf; /* Example text color */
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #282c34; /* Example border color */
+  border-radius: 5px;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+/* static/css/styles.css */
+.editor-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.code-editor-output {
+  width: 100%;
+  /* Add any additional styling as needed */
+}
