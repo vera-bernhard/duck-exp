@@ -1,0 +1,14 @@
+<!-- duck_code_editor/templates/duck_code_editor/code_editor.html -->
+{% extends 'duck_exp/base.html' %}
+
+{% block content %}
+  <h2>Code Editor</h2>
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Run Code</button>
+  </form>
+
+  <!-- Include the Ace editor -->
+  {{ form.media }}
+{% endblock %}

@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "duck_code_editor",
+    "django_ace",
+    "duck_exp"
 ]
 
 MIDDLEWARE = [
