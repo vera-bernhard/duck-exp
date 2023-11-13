@@ -2,12 +2,13 @@
 {% extends 'duck_exp/base.html' %}
 
 {% block content %}
+<div class="container">
   <h2>Welcome to the Experiment</h2>
   <p>Please select your study ID from the dropdown below:</p>
   <form method="post" action="{% url 'duck_code_editor:start_experiment' %}">
     {% csrf_token %}
     <label for="study_id">Select Study ID:</label>
-    <select id="study_id" name="study_id" required>
+    <select id="study_id" name="study_id" class="form-select" required>
       <option value="s1">s1</option>
       <option value="s2">s2</option>
       <option value="s3">s3</option>
@@ -15,6 +16,8 @@
       <option value="s5">s5</option>
       <!-- Add more options as needed -->
     </select>
-    <button type="submit">Submit</button>
+
+    <button class="btn btn-secondary" style="display:block" type="submit">Submit</button>
   </form>
+</div>
 {% endblock %}
