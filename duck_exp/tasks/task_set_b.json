@@ -1,12 +1,12 @@
 [
     {
-        "title": "Task 1",
-        "description": "Debug the given code",
+        "title": "Average calculation",
+        "description": "This code does this and that.",
         "code_to_debug": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)\nprint(calculate_average([1, 2, 3, 4, 5]))",
         "expected_output": "Calculate the average of a list of numbers"
     },
     {
-        "title": "Task 2",
+        "title": "Some logical errors",
         "description": "Identify and fix the logical error",
         "code_to_debug": "def is_prime(n):\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True\nprint(is_prime(5))",
         "expected_output": "Determine if a number is prime"

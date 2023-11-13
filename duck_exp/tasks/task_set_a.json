@@ -1,13 +1,13 @@
 [
     {
-        "title": "Task 1",
-        "description": "Debug the given code",
+        "title": "Division by zero",
+        "description": "This programm does xy",
         "code_to_debug": "def buggy_function():\n    return 5 / 0\n   \nbuggy_function()",
         "expected_output": "Handle the division by zero error"
     },
     {
-        "title": "Task 2",
-        "description": "Fix the syntax errors",
+        "title": "Hello world",
+        "description": "This programm does xy",
         "code_to_debug": "def print_message():\n    print('Hello, World!')\n   \nprint_message()",
         "expected_output": "Hello, World!"
     }

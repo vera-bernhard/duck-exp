@@ -9,3 +9,6 @@ class CodeSnippetForm(forms.ModelForm):
         widgets = {
             'code': AceWidget(mode='python', theme='twilight'),
         }
+        labels = {
+            'code': '',  # Set the label to an empty string to suppress it
+        }

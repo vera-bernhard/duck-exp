@@ -44,6 +44,7 @@ def code_editor(request, task_number):
             return redirect('duck_code_editor:code_editor', task_number=next_task_number)
 
         elif 'run_code' in request.POST:
+            print('run_code')
             # If 'Run Code' button is pressed, execute the code
             form = CodeSnippetForm(request.POST)
             if form.is_valid():
@@ -61,6 +62,7 @@ def code_editor(request, task_number):
 
     return render(request, 'duck_code_editor/code_editor.html', {
         'form': form,
+        'task_number': task_number+1,
         'output': output,
         'current_task': current_task,
         

@@ -1,23 +1,58 @@
-<!-- duck_code_editor/templates/duck_code_editor/code_editor.html -->
-{% extends 'duck_exp/base.html' %}
+{% extends 'duck_exp/base.html' %} {% block content %}
+<div class="container" style="padding-bottom: 5px">
+  <h2>Task {{task_number}}</h2>
+  <b>{{ current_task.title }}:</b>{{current_task.description}}
+</div>
 
-{% block content %}
-  <h2>Code Editor</h2>
-  <div class="editor-container">
-    <form method="post" action="" class="code-form">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" name="run_code" value="true">Run Code</button>
-      <button type="submit" name="next_task" value="true">Next Task</button>
-    </form>
+<div class="container">
+  <div class="row">
+    <!-- Left Column: Ace editor -->
+    <div class="col-md-6">
+      <form method="post" action="" class="code-form">
+        <!-- Ace editor -->
+        {{ form.media }}
 
-    <!-- Include the Ace editor -->
-    {{ form.media }}
+        <!-- Run Code button -->
+        <button
+          type="submit"
+          name="run_code"
+          value="true"
+          class="btn btn-primary"
+        >
+          Run Code
+        </button>
 
-    {% if output %}
+        {% csrf_token %} {{ form.as_p }}
+
+        <!-- Next Task button -->
+        <button
+          type="submit"
+          name="next_task"
+          value="true"
+          class="btn btn-secondary"
+        >
+          Next Task
+        </button>
+      </form>
+    </div>
+
+    <!-- Right Column: "Run Code," "Output," and "Next Task" -->
+    <div class="col-md-6" style="margin-top: 0">
+      <!-- Output heading -->
+      {% comment %}
+      <h5>Output:</h5>
+      {% endcomment %}
+
+      <!-- Output div -->
       <div class="code-editor-output">
-        <pre>{{ output|linebreaksbr }}</pre>
+        {% if output%}
+        <pre style="padding-left: 15px; color: white">
+{{ output|linebreaksbr }}</pre
+        >
+        {% endif %}
       </div>
-    {% endif %}
+    </div>
   </div>
+</div>
+
 {% endblock %}
