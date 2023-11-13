@@ -5,7 +5,7 @@ from django_ace import AceWidget
 class CodeSnippetForm(forms.ModelForm):
     class Meta:
         model = CodeSnippet
-        fields = ['title', 'code']
+        fields = ['code']
         widgets = {
             'code': AceWidget(mode='python', theme='twilight'),
         }
