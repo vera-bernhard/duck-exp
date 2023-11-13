@@ -6,8 +6,18 @@ from django.http import HttpResponseBadRequest
 from .forms import CodeSnippetForm
 
 def code_editor(request, task_number):
-    # Load all tasks from task_set_a.json
-    task_set_a = load_tasks('tasks/task_set_a.json')
+    # Retrieve the study_id from the session
+    selected_study_id = request.session.get('selected_study_id')
+    # ...
+    
+    print(f'study_id: {selected_study_id}, task_number: {task_number}')
+    
+    with open('tasks/task_assignment.json', 'r') as assignment_file:
+        study_assignment = json.load(assignment_file)
+
+    # Get the task set associated with the study ID, defaulting to 'default_task_set' if not found
+    task_set_name = study_assignment.get(selected_study_id, 'task_set_a')
+    task_set_a = load_tasks(f'tasks/{task_set_name}.json')
 
     # Validate that the task_number is a non-negative integer
     try:
@@ -79,3 +89,14 @@ def load_tasks(json_file_path):
         return []  # Return an empty list if the file is not found or cannot be read
     except json.JSONDecodeError:
         return []  # Return an empty list if there's an issue decoding the JSON
+
+def start_experiment(request):
+    if request.method == 'POST':
+        selected_study_id = request.POST.get('study_id')
+        if selected_study_id:
+            # Store the study_id in the session
+            request.session['selected_study_id'] = selected_study_id
+            # Redirect to code_editor view without including study_id in the URL
+            return redirect('duck_code_editor:code_editor', task_number=0)
+
+    return render(request, 'duck_code_editor/start_experiment.html')
