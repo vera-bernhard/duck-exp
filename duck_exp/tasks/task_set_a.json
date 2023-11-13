@@ -1,0 +1,14 @@
+[
+    {
+        "title": "Task 1",
+        "description": "Debug the given code",
+        "code_to_debug": "def buggy_function():\n    return 5 / 0",
+        "expected_output": "Handle the division by zero error"
+    },
+    {
+        "title": "Task 2",
+        "description": "Fix the syntax errors",
+        "code_to_debug": "def print_message()\n    print('Hello, World!')",
+        "expected_output": "Hello, World!"
+    }
+]

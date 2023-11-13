@@ -1,0 +1,14 @@
+[
+    {
+        "title": "Task 1",
+        "description": "Debug the given code",
+        "code_to_debug": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)",
+        "expected_output": "Calculate the average of a list of numbers"
+    },
+    {
+        "title": "Task 2",
+        "description": "Identify and fix the logical error",
+        "code_to_debug": "def is_prime(n):\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True",
+        "expected_output": "Determine if a number is prime"
+    }
+]

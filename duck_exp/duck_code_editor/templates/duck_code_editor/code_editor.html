@@ -7,7 +7,8 @@
     <form method="post" action="" class="code-form">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Run Code</button>
+      <button type="submit" name="run_code" value="true">Run Code</button>
+      <button type="submit" name="next_task" value="true">Next Task</button>
     </form>
 
     <!-- Include the Ace editor -->
