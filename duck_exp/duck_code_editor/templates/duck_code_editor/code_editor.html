@@ -1,8 +1,16 @@
 {% extends 'duck_exp/base.html' %} {% block content %}
-<div class="container" style="padding-bottom: 5px; padding-top: 10px">
-  <h2>Task {{task_number}}</h2>
-  <b>{{ current_task.title }}:</b>{{current_task.description}}
+<div class="container" style="padding-bottom: 5px; padding-top: 10px; display: flex; align-items: center;">
+  <div style="flex: 1;">
+      <h2>Task {{ task_number }}</h2>
+      <b>{{ current_task.title }}:</b> {{ current_task.description }}
+  </div>
+  {% if duck %}
+      <img src="https://media.istockphoto.com/id/1127302688/vector/yellow-duck-icon.jpg?s=612x612&w=0&k=20&c=VD0bPGAhprT2sZFtUpHin-60ZmrvkrprYnEoeDddthY=" 
+           alt="Description of the image"
+           style="width: 100px; margin-left: 10px; margin-right: 200px;">
+  {% endif %}
 </div>
+
 
 <div class="container">
   <div class="row">
@@ -27,7 +35,7 @@
         <!-- Next Task button -->
         <button
           type="submit"
-          name="next_task"
+          name="next"
           value="true"
           class="btn btn-secondary"
         >
@@ -52,6 +60,7 @@
         {% endif %}
       </div>
     </div>
+
   </div>
 </div>
 

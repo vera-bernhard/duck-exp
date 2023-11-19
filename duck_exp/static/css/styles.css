@@ -21,3 +21,31 @@
 .django-ace-toolbar {
   display: none;
 }
+
+.container {
+  padding-bottom: 5px; 
+  padding-top: 20px
+}
+
+/* Add this to your existing stylesheet or create a new one */
+
+.likert-question {
+  display: flex;
+  flex-direction: column;
+}
+
+.likert-options {
+  display: flex;
+  justify-content: space-between;
+  width: 700px; /* Adjust the width as needed */
+  height: 100px;
+}
+
+.likert-option {
+  text-align: center;
+}
+
+.likert-label {
+  display: block;
+  margin-bottom: 5px;
+}

@@ -1,0 +1,23 @@
+<!-- templates/duck_code_editor/survey_complete.html -->
+{% extends 'duck_exp/base.html' %} {% block content %}
+
+<div class="container">
+  <h2>From now on you will be using rubber duck debugging</h2>
+  <p>Rubber duck debugging is.</p>
+  <p>Here is an example of rubber duck debugging:</p>
+  <!--include a youtube video-->
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/NBgIHOrjSxs?si=Y3oHU2Y4heXrPHao"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
+  <form method="post" value="duck" action="{% url 'duck_code_editor:code_editor_duck' task_number=0 %}">
+    {% csrf_token %}
+    <button class="btn btn-secondary" style="display:block" type="submit" name='start-rubber-duck'>Start rubber ducking</button>
+  </form>
+</div>
+{% endblock %}

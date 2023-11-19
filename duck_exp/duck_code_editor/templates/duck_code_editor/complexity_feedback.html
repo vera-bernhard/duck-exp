@@ -1,0 +1,38 @@
+<!-- templates/duck_code_editor/survey_complete.html -->
+{% extends 'duck_exp/base.html' %} {% block content %}
+
+<div class="container">
+  <h2>Rate the previous task</h2>
+  <form method="post" action="">
+    {% csrf_token %}
+    <div class="likert-question">
+      <p>How complex did you find the previous task?</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Very simple</span>
+          <input type="radio" name="complexity" value="1" />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Simple</span>
+          <input type="radio" name="complexity" value="2" />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="complexity" value="3" />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Complex</span>
+          <input type="radio" name="complexity" value="4" />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Very complex</span>
+          <input type="radio" name="complexity" value="5" />
+        </label>
+      </div>
+    </div>
+    <button class="btn btn-secondary" style="display: block" type="submit">
+      Submit
+    </button>
+  </form>
+</div>
+{% endblock %}

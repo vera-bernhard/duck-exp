@@ -1,11 +1,8 @@
 <!-- templates/duck_code_editor/survey_complete.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Survey Complete</title>
-</head>
-<body>
-    <h1>Survey Complete</h1>
-    <p>Thank you for completing the survey!</p>
-</body>
-</html>
+{% extends 'duck_exp/base.html' %} {% block content %}
+
+<div class="container">
+  <h2>Survey Complete</h2>
+  <p>Thank you for completing the survey!</p>
+</div>
+{% endblock %}
