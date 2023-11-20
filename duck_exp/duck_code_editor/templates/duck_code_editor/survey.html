@@ -1,31 +1,33 @@
-{% extends 'duck_exp/base.html' %} {% block content %}
+<!-- templates/duck_code_editor/survey.html -->
+{% extends 'duck_exp/base.html' %} 
+{% block content %}
 
 <div class="container">
   <h2>Rate the previous task</h2>
   <form method="post" action="">
     {% csrf_token %}
     <div class="likert-question">
-      <p>How comfortable were you using rubber duck debuggin?</p>
+      <p>How comfortable were you using rubber duck debugging?</p>
       <div class="likert-options">
         <label class="likert-option">
           <span class="likert-label">Very uncomfortable</span>
-          <input type="radio" name="complexity" value="1" />
+          <input type="radio" name="survey_q1" value="Very uncomfortable" required/>
         </label>
         <label class="likert-option">
           <span class="likert-label">Somewhat Uncomfortable</span>
-          <input type="radio" name="complexity" value="2" />
+          <input type="radio" name="survey_q1" value="Somewhat Uncomfortable" required />
         </label>
         <label class="likert-option">
           <span class="likert-label">Neutral</span>
-          <input type="radio" name="complexity" value="3" />
+          <input type="radio" name="survey_q1" value="Neutral" required/>
         </label>
         <label class="likert-option">
           <span class="likert-label">Comfortable</span>
-          <input type="radio" name="complexity" value="4" />
+          <input type="radio" name="survey_q1" value="Comfortable" required />
         </label>
         <label class="likert-option">
           <span class="likert-label">Very Comfortable</span>
-          <input type="radio" name="complexity" value="5" />
+          <input type="radio" name="survey_q1" value="Very Comfortable" required />
         </label>
       </div>
 
@@ -33,23 +35,23 @@
       <div class="likert-options">
         <label class="likert-option">
           <span class="likert-label">Very simple</span>
-          <input type="radio" name="complexity" value="1" />
+          <input type="radio" name="survey_q2" value="Very simple" required/>
         </label>
         <label class="likert-option">
           <span class="likert-label">Simple</span>
-          <input type="radio" name="complexity" value="2" />
+          <input type="radio" name="survey_q2" value="Simple" required/>
         </label>
         <label class="likert-option">
           <span class="likert-label">Neutral</span>
-          <input type="radio" name="complexity" value="3" />
+          <input type="radio" name="survey_q2" value="Neutral" required />
         </label>
         <label class="likert-option">
           <span class="likert-label">Complex</span>
-          <input type="radio" name="complexity" value="4" />
+          <input type="radio" name="survey_q2" value="Complex"  required/>
         </label>
         <label class="likert-option">
           <span class="likert-label">Very complex</span>
-          <input type="radio" name="complexity" value="5" />
+          <input type="radio" name="survey_q2" value="Very complex" required/>
         </label>
       </div>
     </div>

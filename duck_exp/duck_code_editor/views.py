@@ -324,5 +324,19 @@ def feedback(request, task_number):
 
 def survey(request):
     if request.method == 'POST':
+        # Save survey responses to the database
+        survey_q1 = request.POST.get('survey_q1')
+        survey_q2 = request.POST.get('survey_q2')
+
+        trial = Trial.objects.get(
+            student_id=request.session.get('selected_study_id'))
+        
+        # Save to your model instance (replace YourModel with the actual name of your model)
+        trial.survey_q1 = survey_q1
+        trial.survey_q2 = survey_q2 
+        
+        trial.save()
+        
         return redirect('duck_code_editor:survey_complete')
+
     return render(request, 'duck_code_editor/survey.html')
