@@ -243,18 +243,42 @@ def instructions(request):
 def rubber_duck_instructions(request):
     return render(request, 'duck_code_editor/rubber_duck_instructions.html')
 
-
 def feedback(request, task_number):
+    selected_study_id = request.session.get('selected_study_id')
+    current_trial = Trial.objects.get(student_id=selected_study_id)
+
     if request.method == 'POST':
-        # depending on whether duck is in url as in task<nr>duck, redirect to the correct url
+        # depending on whether duck is in the URL as in task<nr>duck, redirect to the correct URL
         regex_pattern = re.compile(r'task\d+duck')
-        if regex_pattern.search(request.path):
+        duck_debugging = regex_pattern.search(request.path)
+
+        if task_number == 0:
+            current_trial_task = current_trial.task_1
+            if duck_debugging:
+                current_trial_task = current_trial.task_1_duck
+        elif task_number == 1:
+            current_trial_task = current_trial.task_2
+            if duck_debugging:
+                current_trial_task = current_trial.task_2_duck
+        elif task_number == 2:
+            current_trial_task = current_trial.task_3
+            if duck_debugging:
+                current_trial_task = current_trial.task_3_duck
+        else:
+            return HttpResponseBadRequest("Invalid task number")
+
+        # Save the perceived complexity from the form submission
+        perceived_complexity = request.POST.get('complexity')
+        if perceived_complexity:
+            current_trial_task.perceived_complexity = perceived_complexity
+            current_trial_task.save()
+
+        if duck_debugging:
             return redirect('duck_code_editor:code_editor_duck', task_number=task_number+1)
         else:
             return redirect('duck_code_editor:code_editor', task_number=task_number+1)
 
     return render(request, 'duck_code_editor/complexity_feedback.html')
-
 
 def survey(request):
     if request.method == 'POST':
