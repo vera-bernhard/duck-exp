@@ -280,10 +280,9 @@ def start_experiment(request):
     available_ids = get_available_ids()
 
     if request.method == 'POST':
-        selected_id = request.POST.get('study_id')
-
         if 'generate' in request.POST:
             random_name = generate_random_name()
+            request.session['selected_study_id'] = random_name
             return render(request, 'duck_code_editor/start_experiment.html',
                           {'available_ids': available_ids,
                               'random_name': random_name}
@@ -291,9 +290,13 @@ def start_experiment(request):
 
         else:
             # Store the selected ID in the session
-            request.session['selected_study_id'] = selected_id
+            if not request.session['selected_study_id']:
+                selected_id = request.POST.get('study_id')
+                request.session['selected_study_id'] = selected_id
             # Redirect to code_editor view without including study_id in the URL
-            return redirect('duck_code_editor:code_editor', task_number=0)
+            return redirect('duck_code_editor:instructions')
+    else:
+        request.session['selected_study_id'] = None
 
     # Render the start_experiment template
     return render(request, 'duck_code_editor/start_experiment.html', {'available_ids': available_ids})
@@ -304,6 +307,8 @@ def break_page(request):
 
 
 def instructions(request):
+    if request.method == 'POST':
+        return redirect('duck_code_editor:code_editor', task_number=0)
     return render(request, 'duck_code_editor/instructions.html')
 
 
@@ -314,6 +319,15 @@ def rubber_duck_instructions(request):
         else:
             return render(request, 'duck_code_editor/rubber_duck_instructions.html')
     return render(request, 'duck_code_editor/rubber_duck_instructions.html')
+
+
+def without_duck_instructions(request):
+    if request.method == 'POST':
+        if 'start-without-duck' in request.POST:
+            return redirect('duck_code_editor:code_editor', task_number=1)
+        else:
+            return render(request, 'duck_code_editor/without_duck_instructions.html')
+    return render(request, 'duck_code_editor/without_duck_instructions.html')
 
 
 def feedback(request, task_number):
@@ -352,7 +366,12 @@ def feedback(request, task_number):
         if duck_debugging:
             return redirect('duck_code_editor:code_editor_duck', task_number=task_number+1)
         else:
-            return redirect('duck_code_editor:code_editor', task_number=task_number+1)
+            if task_number == 0:
+                return redirect('duck_code_editor:without_instructions')
+            else:
+                return redirect('duck_code_editor:code_editor', task_number=task_number+1)
+        
+        
 
     return render(request, 'duck_code_editor/complexity_feedback.html')
 

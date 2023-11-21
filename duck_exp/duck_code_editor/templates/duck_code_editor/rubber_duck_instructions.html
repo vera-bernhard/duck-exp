@@ -2,11 +2,30 @@
 {% extends 'duck_exp/base.html' %} {% block content %}
 
 <div class="container">
-  <h2>From now on you will be using rubber duck debugging</h2>
-  <p>Rubber duck debugging is.</p>
-  <p>Here is an example of rubber duck debugging:</p>
+  <h2>Part 3: Rubber Duck Debugging</h2>
+  <p>
+    This is the final part of the experiment. We will now introduce the concept
+    of rubber duck debugging. Please read the following text carefully, as it
+    will explain how to tackle the final task.
+  </p>
+  <p>
+    Rubber duck debugging is a technique where a programmer explains the code
+    which they are working on to an inanimate object (usually a rubber duckie).
+    The idea is, then, that by explaining the code as one goes through it, it
+    will become easier to spot mistakes. For example:
+  </p>
+  <div style="margin-left:30px;">
+    <p>GIVEN CODE: d = a + b * c</p>
+    <p>CODER: <i>“And here d is initiated to the value of a + b, and that is multiplied by c.”</i></p>
+    <p>RUBBER DUCK: “...”</p>
+    <p>CODER: <i>“Oh gosh! You’re right! There are no parentheses so b * c is happening first!</i></p>
+  </div>
+  <p>
+    We would now like to ask you to use rubber duck debugging in the final task. We will provide you with a virtual rubber duckie on your screen. Please state ALL your thoughts out loud. Do not just think your thoughts, but explicitly voice them. Really try to use the technique as extremely and thoroughly as possible. For the next ten minutes, the rubber duckie is your best friend. You are not being recorded.
+  </p>
+  <h4><b>For the next task, please work only <u>with rubber duck debugging</u>!</b><h4>
   <!--include a youtube video-->
-  <iframe
+  {% comment %} <iframe
     width="560"
     height="315"
     src="https://www.youtube.com/embed/NBgIHOrjSxs?si=Y3oHU2Y4heXrPHao"
@@ -14,10 +33,17 @@
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen
-  ></iframe>
+  ></iframe> {% endcomment %}
   <form method="post" value="duck" action="">
     {% csrf_token %}
-    <button class="btn btn-secondary" style="display:block" type="submit" name='start-rubber-duck'>Start rubber ducking</button>
+    <button
+      class="btn btn-secondary"
+      style="display: block"
+      type="submit"
+      name="start-rubber-duck"
+    >
+      Next
+    </button>
   </form>
 </div>
 {% endblock %}

@@ -1,0 +1,62 @@
+<!-- templates/duck_code_editor/survey_complete.html -->
+{% extends 'duck_exp/base.html' %} {% block content %}
+
+<div class="container">
+  <h2>Instructions</h2>
+  <p>
+    Please read and follow the instructions before each task! The results of our
+    experiment hinge on it.
+  </p>
+  <ol>
+    <li>
+      <p>
+        Each task will be introduced by a description of the code, some example
+        input/output. Your output after debugging should exactly match that of
+        the examples.
+      </p>
+    </li>
+
+    <li>
+      <p>
+        You will receive a piece of code that compiles correctly but produces
+        incorrect or unexpected output. In other words, all bugs are of a
+        semantic nature: There is something wrong with the logic of the code,
+        NOT the syntax, style, or organisation of it.
+      </p>
+    </li>
+
+    <li>
+      <p>
+        Do NOT use external tools during debugging. You may only rely on your
+        own knowledge.
+      </p>
+    </li>
+
+    <li>
+      <p>
+        Do NOT import new libraries. Any needed libraries will already be
+        included.
+      </p>
+    </li>
+
+    <li>
+      <p>Do NOT define new functions. Only edit any existing ones.</p>
+    </li>
+
+    <li>
+      <p>
+        When you think your code is corrected, or when you decide you cannot fix
+        it, please press next. You will not be able to return after proceeding,
+        so make sure you are certain that you are done before moving on.
+      </p>
+    </li>
+  </ol>
+  <p>Let’s proceed with a test task to get you warmed up.</p>
+  <form method="post" action="{% url 'duck_code_editor:instructions' %}">
+    {% csrf_token %}    
+    <button class="btn btn-secondary" style="display: block" type="submit">
+      Next
+    </button>
+  </form>
+</div>
+{% endblock %}

@@ -3,14 +3,17 @@
 
 {% block content %}
 <div class="container">
-  <h2>Welcome to the Experiment</h2>
+  <h2>Debugging in Python: A controlled experiment</h2>
+  <p>Thank you for participating in our research. Your answers to this form are crucial in giving us sufficient data to work with. The entire experiment consists of three debugging tasks, as well as a short questionnaire after each one. These tutorial messages will give you instructions as you go.  </p>
+  
+  <p>The only thing you should take care of now is that you are alone and have the time to finish the experiment in one go. The whole experience shouldn’t take more than 30 to 40 minutes.</p>
 
-  <p>Please select your study ID from the dropdown below:</p>
+  <p> <b> Please select the id that Anastasia has e-mailed to you earlier this month. </b> </p>
 
   <form method="post" action="{% url 'duck_code_editor:start_experiment' %}">
     {% csrf_token %}
     {% if not random_name %}
-      <label for="study_id">Select your assigned study id:</label>
+      <label for="study_id">Your id:</label>
       <select id="study_id" name="study_id" class="form-select" required>
         {% for id in available_ids %}
         <option value="{{ id }}">{{ id }}</option>
@@ -19,21 +22,26 @@
     </span>
 
     <div>
-      <small class="text-muted">My id is not available, generate a random one instead:</small>
-      <button class="btn btn-link btn-sm" name="generate" type="submit">Generate</button>
+      <small> In case you are not entirely sure which id you have been assigned, generate a random one. Please write down the id and send it to Anastasia. </small>
+      {% comment %} 
+      <button class="btn btn-outline-primary btn-sm" name="generate" type="submit">Generate random id</button> {% endcomment %}
+      <button class="btn btn-link btn-sm" name="generate" type="submit">Generate random id</button> 
     </div>
 
     {% else %}
     <div style="margin-bottom:30px;">
-    Your study id is: 
-    <i id="study_id" value={{random_name}}>
+    Your id: 
+    <i value={{random_name}}>
       {{ random_name }}
     </i>
+    <p> Please send an e-mail to Anastasia with this id. </p>
     </div>
     {% endif %}
 
+    <p style="margin-top: 30px;"> Once again, thank you for taking the time to help us out! </p>
+
     <button class="btn btn-secondary" style="display: block" type="submit">
-      Submit
+      Start
     </button>
   </form>
 </div>

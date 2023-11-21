@@ -1,0 +1,25 @@
+<!-- templates/duck_code_editor/survey_complete.html -->
+{% extends 'duck_exp/base.html' %} {% block content %}
+
+<div class="container">
+  <h2>Part 2: Silent Debugging</h2>
+  <p>
+    From this point on, the real experiment will start. Please try to work at a
+    pace and concentration level that feels natural to you. Do not try to rush
+    just because you are participating in an experiment.
+  </p>
+
+  <h4><b>For the next task, please work in <u>absolute silence</u>!</b><h4>
+  <form method="post" value="duck" action="">
+    {% csrf_token %}
+    <button
+      class="btn btn-secondary"
+      style="display: block"
+      type="submit"
+      name="start-without-duck"
+    >
+      Next
+    </button>
+  </form>
+</div>
+{% endblock %}
