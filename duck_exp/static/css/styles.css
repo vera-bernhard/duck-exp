@@ -39,6 +39,7 @@
   justify-content: space-between;
   width: 700px; /* Adjust the width as needed */
   height: 100px;
+  margin-left: 30px;
 }
 
 .likert-option {

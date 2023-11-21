@@ -15,7 +15,7 @@
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen
   ></iframe>
-  <form method="post" value="duck" action="{% url 'duck_code_editor:code_editor_duck' task_number=0 %}">
+  <form method="post" value="duck" action="">
     {% csrf_token %}
     <button class="btn btn-secondary" style="display:block" type="submit" name='start-rubber-duck'>Start rubber ducking</button>
   </form>

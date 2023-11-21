@@ -8,62 +8,63 @@ from .forms import CodeSnippetForm
 from .models import Trial_Task, Trial
 from django.utils import timezone
 
+NR_OF_TASKS = 2
+
 
 def code_editor(request, task_number):
+
     # Retrieve the study_id from the session
     selected_study_id = request.session.get('selected_study_id')
-
-    print(f'study_id: {selected_study_id}, task_number: {task_number}')
-
     with open('tasks/task_assignment.json', 'r') as assignment_file:
         study_assignment = json.load(assignment_file)
 
+    with open('tasks/test_task.json', 'r') as assignment_file:
+        test_task = json.load(assignment_file)
+
     # Get the task set associated with the study ID, defaulting to 'default_task_set' if not found
     task_set_name = study_assignment.get(selected_study_id)
-    task_test = load_tasks(f'tasks/{task_set_name}.json')
+    task_set = load_tasks(f'tasks/{task_set_name}.json')
+    test_task = load_tasks(f'tasks/test_task.json')
 
-    # Validate that the task_number is a non-negative integer
-    try:
-        task_number = int(task_number)
-        if task_number < 0 or task_number >= len(task_test) + 1:
-            raise ValueError("Invalid task number")
-    except ValueError:
-        return HttpResponseBadRequest("Invalid task number")
+    if task_number == 0:
+        current_task = test_task
 
-    output = None
-    try:
-        current_task = task_test[task_number]
-    except IndexError:
+    elif task_number > NR_OF_TASKS:
         return redirect('duck_code_editor:break_page')
 
-    if request.method == 'POST':
-        # Check if 'Next Task' button is pressed
-        if 'next' in request.POST:
+    else:
+        current_task = task_set[task_number-1]
 
-            # safe time and solution in trial_task instance
-            # current_task_instance = Trial_Task.objects.get(
+    output = None    
+    if request.method == 'POST':
+
+        # new task is requested
+        if 'next' in request.POST:
+            # save time and solution in trial_task instance
             current_trial = Trial.objects.get(
                 student_id=selected_study_id,
             )
+
             if task_number == 0:
-                trial_task = current_trial.task_1
+                trial_task = current_trial.test_task
 
             elif task_number == 1:
-                trial_task = current_trial.task_2
+                trial_task = current_trial.task_1
 
             elif task_number == 2:
+                trial_task = current_trial.task_2
+
+            elif task_number == 3:
                 trial_task = current_trial.task_3
+
             trial_task.end_time = timezone.now()
             trial_task.duration = trial_task.end_time - trial_task.start_time
             trial_task.student_solution = request.POST.get('code')
             trial_task.save()
 
-            # Redirect to the next task with its number in the URL
             return redirect('duck_code_editor:feedback', task_number=task_number)
 
         elif 'run_code' in request.POST:
-
-            print('run_code')
             # If 'Run Code' button is pressed, execute the code
             form = CodeSnippetForm(request.POST)
             if form.is_valid():
@@ -75,40 +76,43 @@ def code_editor(request, task_number):
             else:
                 output = None
 
-    # Initialize the form with the code from the current task
     else:
-        form = CodeSnippetForm(
-            initial={'code': current_task.get('code_to_debug', '')})
+        if task_number == 0:
+            # create Trial instance
+            Trial.objects.create(
+                student_id=selected_study_id,
+                group=task_set_name,
+            )
+
+        # Initialize the form with the code from the current task
         current_task_instance = Trial_Task.objects.create(
             task_name=current_task['title'],
             start_time=timezone.now(),
             solved_with_duck=False
         )
 
-        # If it's first task, create a new trial instance
+        current_trial = Trial.objects.get(
+            student_id=selected_study_id)
+
         if task_number == 0:
-            # Create a new task instance and set 'start_time'
-            Trial.objects.create(
-                student_id=selected_study_id,
-                group=task_set_name,
-                task_1=current_task_instance,
-            )
+            current_trial.test_task = current_task_instance
+        elif task_number == 1:
+            current_trial.task_1 = current_task_instance
+        elif task_number == 2:
+            current_trial.task_2 = current_task_instance
+        elif task_number == 3:
+            current_trial.task_3 = current_task_instance
         else:
-            current_trial = Trial.objects.get(
-                student_id=selected_study_id)
+            breakpoint()
 
-            if task_number == 1:
-                current_trial.task_2 = current_task_instance
-            elif task_number == 2:
-                current_trial.task_3 = current_task_instance
-            else:
-                breakpoint()
+        current_trial.save()
 
-            current_trial.save()
+        form = CodeSnippetForm(
+            initial={'code': current_task.get('code_to_debug', '')})
 
     return render(request, 'duck_code_editor/code_editor.html', {
         'form': form,
-        'task_number': task_number+1,
+        'task_number': task_number,
         'output': output,
         'current_task': current_task,
         'duck': False,
@@ -132,18 +136,11 @@ def code_editor_duck(request, task_number):
         task_set_name = 'task_set_a'
     task_set = load_tasks(f'tasks/{task_set_name}.json')
 
-    # Validate that the task_number is a non-negative integer
-    try:
-        task_number = int(task_number)
-        if task_number < 0 or task_number >= len(task_set) + 1:
-            raise ValueError("Invalid task number")
-    except ValueError:
-        return HttpResponseBadRequest("Invalid task number")
-
-    try:
-        current_task = task_set[task_number]
-    except IndexError:
+    if task_number > NR_OF_TASKS:
         return redirect('duck_code_editor:survey')
+
+    else:
+        current_task = task_set[task_number-1]
 
     output = None
 
@@ -156,20 +153,20 @@ def code_editor_duck(request, task_number):
             current_trial = Trial.objects.get(
                 student_id=selected_study_id,
             )
-            if task_number == 0:
+            if task_number == 1:
                 trial_task = current_trial.task_1_duck
 
-            elif task_number == 1:
+            elif task_number == 2:
                 trial_task = current_trial.task_2_duck
 
-            elif task_number == 2:
+            elif task_number == 3:
                 trial_task = current_trial.task_3_duck
 
             trial_task.end_time = timezone.now()
             trial_task.duration = trial_task.end_time - trial_task.start_time
             trial_task.student_solution = request.POST.get('code')
             trial_task.save()
-            # Redirect to the next task with its number in the URL
+            
             return redirect('duck_code_editor:feedback_duck', task_number=task_number)
 
         elif 'run_code' in request.POST:
@@ -185,25 +182,7 @@ def code_editor_duck(request, task_number):
             else:
                 output = None
 
-        else:
-            form = CodeSnippetForm(
-                initial={'code': current_task.get('code_to_debug', '')})
-
-            # Create a new task instance and set 'start_time'
-            current_task_instance = Trial_Task.objects.create(
-                task_name=current_task['title'],
-                start_time=timezone.now(),
-                solved_with_duck=True
-            )
-
-            current_trial = Trial.objects.get(
-                student_id=selected_study_id)
-            
-            current_trial.task_1_duck = current_task_instance
-
-            current_trial.save()
     else:
-        # Initialize the form with the code from the current task
         form = CodeSnippetForm(
             initial={'code': current_task.get('code_to_debug', '')})
 
@@ -215,10 +194,12 @@ def code_editor_duck(request, task_number):
         )
         current_trial = Trial.objects.get(
             student_id=selected_study_id)
-      
+        
         if task_number == 1:
-            current_trial.task_2_duck = current_task_instance
+            current_trial.task_1_duck = current_task_instance
         elif task_number == 2:
+            current_trial.task_2_duck = current_task_instance
+        elif task_number == 3:
             current_trial.task_3_duck = current_task_instance
         else:
             breakpoint()
@@ -281,6 +262,9 @@ def instructions(request):
 
 
 def rubber_duck_instructions(request):
+    
+    if request.method == 'POST':
+        return redirect('duck_code_editor:code_editor_duck', task_number=1)
     return render(request, 'duck_code_editor/rubber_duck_instructions.html')
 
 
@@ -294,14 +278,17 @@ def feedback(request, task_number):
         duck_debugging = regex_pattern.search(request.path)
 
         if task_number == 0:
+            current_trial_task = current_trial.test_task
+
+        elif task_number == 1:
             current_trial_task = current_trial.task_1
             if duck_debugging:
                 current_trial_task = current_trial.task_1_duck
-        elif task_number == 1:
+        elif task_number == 2:
             current_trial_task = current_trial.task_2
             if duck_debugging:
                 current_trial_task = current_trial.task_2_duck
-        elif task_number == 2:
+        elif task_number == 3:
             current_trial_task = current_trial.task_3
             if duck_debugging:
                 current_trial_task = current_trial.task_3_duck
@@ -327,16 +314,18 @@ def survey(request):
         # Save survey responses to the database
         survey_q1 = request.POST.get('survey_q1')
         survey_q2 = request.POST.get('survey_q2')
+        survey_q3 = request.POST.get('survey_q3')
 
         trial = Trial.objects.get(
             student_id=request.session.get('selected_study_id'))
-        
+
         # Save to your model instance (replace YourModel with the actual name of your model)
         trial.survey_q1 = survey_q1
-        trial.survey_q2 = survey_q2 
-        
+        trial.survey_q2 = survey_q2
+        trial.survey_q3 = survey_q3
+
         trial.save()
-        
+
         return redirect('duck_code_editor:survey_complete')
 
     return render(request, 'duck_code_editor/survey.html')

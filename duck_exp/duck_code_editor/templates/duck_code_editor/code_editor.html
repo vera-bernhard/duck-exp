@@ -1,7 +1,12 @@
 {% extends 'duck_exp/base.html' %} {% block content %}
 <div class="container" style="padding-bottom: 5px; padding-top: 10px; display: flex; align-items: center;">
   <div style="flex: 1;">
+      {%if task_number == 0%}
+      <h2>Test Task</h2>
+      {%else%}
       <h2>Task {{ task_number }}</h2>
+      {%endif%}
+      
       <b>{{ current_task.title }}:</b> {{ current_task.description }}
   </div>
   {% if duck %}
