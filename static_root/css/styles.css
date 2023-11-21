@@ -1,0 +1,52 @@
+/* static/css/styles.css */
+.code-editor-output {
+  background-color: #1e1e1e; /* Example background color */
+  color: white; /* Example text color */
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  margin-bottom: 20px;
+  margin-top: 53px;
+  border: 1px solid #282c34; /* Example border color */
+  white-space: pre-wrap;
+  flex-shrink: 0; 
+  width: 500px; 
+  height: 300px;
+  align-self: flex-end;
+}
+
+.django-ace-editor {
+  width: 500px;
+}
+
+.django-ace-toolbar {
+  display: none;
+}
+
+.container {
+  padding-bottom: 5px; 
+  padding-top: 5px
+}
+
+/* Add this to your existing stylesheet or create a new one */
+
+.likert-question {
+  display: flex;
+  flex-direction: column;
+}
+
+.likert-options {
+  display: flex;
+  justify-content: space-between;
+  width: 700px; /* Adjust the width as needed */
+  height: 100px;
+  margin-left: 30px;
+}
+
+.likert-option {
+  text-align: center;
+}
+
+.likert-label {
+  display: block;
+  margin-bottom: 5px;
+}
