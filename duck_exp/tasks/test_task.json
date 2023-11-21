@@ -1,6 +1,6 @@
 {
     "title": "Average calculation",
-    "description": "This code does this and that.",
+    "description": "This code does bliblablub",
     "code_to_debug": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)\nprint(calculate_average([1, 2, 3, 4, 5]))",
     "expected_output": "Calculate the average of a list of numbers",
     "complexity": "4"
