@@ -28,7 +28,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'render.com',
+    'debugging-study.onrender.com',
 ]
 
 
