@@ -4,20 +4,37 @@
 {% block content %}
 <div class="container">
   <h2>Welcome to the Experiment</h2>
+
   <p>Please select your study ID from the dropdown below:</p>
+
   <form method="post" action="{% url 'duck_code_editor:start_experiment' %}">
     {% csrf_token %}
-    <label for="study_id">Select Study ID:</label>
-    <select id="study_id" name="study_id" class="form-select" required>
-      <option value="s1">s1</option>
-      <option value="s2">s2</option>
-      <option value="s3">s3</option>
-      <option value="s4">s4</option>
-      <option value="s5">s5</option>
-      <!-- Add more options as needed -->
-    </select>
+    {% if not random_name %}
+      <label for="study_id">Select your assigned study id:</label>
+      <select id="study_id" name="study_id" class="form-select" required>
+        {% for id in available_ids %}
+        <option value="{{ id }}">{{ id }}</option>
+        {% endfor %}
+      </select>
+    </span>
 
-    <button class="btn btn-secondary" style="display:block" type="submit">Submit</button>
+    <div>
+      <small class="text-muted">My id is not available, generate a random one instead:</small>
+      <button class="btn btn-link btn-sm" name="generate" type="submit">Generate</button>
+    </div>
+
+    {% else %}
+    <div style="margin-bottom:30px;">
+    Your study id is: 
+    <i id="study_id" value={{random_name}}>
+      {{ random_name }}
+    </i>
+    </div>
+    {% endif %}
+
+    <button class="btn btn-secondary" style="display: block" type="submit">
+      Submit
+    </button>
   </form>
 </div>
 {% endblock %}

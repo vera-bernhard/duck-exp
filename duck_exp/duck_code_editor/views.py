@@ -1,14 +1,19 @@
 # duck_code_editor/views.py
-import subprocess
 import json
+import random
+import subprocess
+
 import regex as re
-from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest
-from .forms import CodeSnippetForm
-from .models import Trial_Task, Trial
+from django.shortcuts import redirect, render
 from django.utils import timezone
 
+from .forms import CodeSnippetForm
+from .models import Trial, Trial_Task
+
 NR_OF_TASKS = 2
+
+TASK_SETS = ['task_set_a', 'task_set_b']
 
 
 def code_editor(request, task_number):
@@ -22,7 +27,12 @@ def code_editor(request, task_number):
         test_task = json.load(assignment_file)
 
     # Get the task set associated with the study ID, defaulting to 'default_task_set' if not found
-    task_set_name = study_assignment.get(selected_study_id)
+    task_set_name = study_assignment.get(selected_study_id, None)
+
+    if not task_set_name:
+        # assign task set at random
+        task_set_name = random.choice(TASK_SETS)
+
     task_set = load_tasks(f'tasks/{task_set_name}.json')
     test_task = load_tasks(f'tasks/test_task.json')
 
@@ -35,7 +45,7 @@ def code_editor(request, task_number):
     else:
         current_task = task_set[task_number-1]
 
-    output = None    
+    output = None
     if request.method == 'POST':
 
         # new task is requested
@@ -129,11 +139,13 @@ def code_editor_duck(request, task_number):
 
     # Get the task set associated with the study ID, defaulting to 'default_task_set' if not found
     task_set_name = study_assignment.get(selected_study_id)
-    # take the other task set
-    if task_set_name == 'task_set_a':
-        task_set_name = 'task_set_b'
+
+    # take the other task set than the one assigned via TASK_SETS
+    if task_set_name == TASK_SETS[0]:
+        task_set_name = TASK_SETS[1]
     else:
-        task_set_name = 'task_set_a'
+        task_set_name = TASK_SETS[0]
+
     task_set = load_tasks(f'tasks/{task_set_name}.json')
 
     if task_number > NR_OF_TASKS:
@@ -166,7 +178,7 @@ def code_editor_duck(request, task_number):
             trial_task.duration = trial_task.end_time - trial_task.start_time
             trial_task.student_solution = request.POST.get('code')
             trial_task.save()
-            
+
             return redirect('duck_code_editor:feedback_duck', task_number=task_number)
 
         elif 'run_code' in request.POST:
@@ -194,7 +206,7 @@ def code_editor_duck(request, task_number):
         )
         current_trial = Trial.objects.get(
             student_id=selected_study_id)
-        
+
         if task_number == 1:
             current_trial.task_1_duck = current_task_instance
         elif task_number == 2:
@@ -208,7 +220,7 @@ def code_editor_duck(request, task_number):
 
     return render(request, 'duck_code_editor/code_editor.html', {
         'form': form,
-        'task_number': task_number+1,
+        'task_number': task_number,
         'output': output,
         'current_task': current_task,
         'duck': True,
@@ -241,16 +253,50 @@ def load_tasks(json_file_path):
         return []  # Return an empty list if there's an issue decoding the JSON
 
 
+def get_available_ids():
+    # Assuming you have a fixed set of possible IDs (s1, s2, ..., s30)
+    all_possible_ids = [f's{i}' for i in range(1, 31)]
+
+    # Get a list of IDs that are already in use
+    used_ids = Trial.objects.values_list('student_id', flat=True)
+
+    # Filter out the used IDs from the possible IDs
+    available_ids = [id for id in all_possible_ids if id not in used_ids]
+
+    return available_ids
+
+
+def generate_random_name():
+    colors = ['red', 'blue', 'green', 'pink', 'yellow']
+    animals = ['cat', 'dog', 'fish', 'camel', 'elephant']
+
+    while True:
+        random_name = f"{random.choice(colors)}-{random.choice(animals)}"
+        if not Trial.objects.filter(student_id=random_name).exists():
+            return random_name
+
+
 def start_experiment(request):
+    available_ids = get_available_ids()
+
     if request.method == 'POST':
-        selected_study_id = request.POST.get('study_id')
-        if selected_study_id:
-            # Store the study_id in the session
-            request.session['selected_study_id'] = selected_study_id
+        selected_id = request.POST.get('study_id')
+
+        if 'generate' in request.POST:
+            random_name = generate_random_name()
+            return render(request, 'duck_code_editor/start_experiment.html',
+                          {'available_ids': available_ids,
+                              'random_name': random_name}
+                          )
+
+        else:
+            # Store the selected ID in the session
+            request.session['selected_study_id'] = selected_id
             # Redirect to code_editor view without including study_id in the URL
             return redirect('duck_code_editor:code_editor', task_number=0)
 
-    return render(request, 'duck_code_editor/start_experiment.html')
+    # Render the start_experiment template
+    return render(request, 'duck_code_editor/start_experiment.html', {'available_ids': available_ids})
 
 
 def break_page(request):
@@ -262,9 +308,11 @@ def instructions(request):
 
 
 def rubber_duck_instructions(request):
-    
     if request.method == 'POST':
-        return redirect('duck_code_editor:code_editor_duck', task_number=1)
+        if 'start-rubber-duck' in request.POST:
+            return redirect('duck_code_editor:code_editor_duck', task_number=1)
+        else:
+            return render(request, 'duck_code_editor/rubber_duck_instructions.html')
     return render(request, 'duck_code_editor/rubber_duck_instructions.html')
 
 
