@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = os.environ["SECRET_KEY"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'debugging-study.onrender.com',
