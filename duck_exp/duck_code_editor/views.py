@@ -267,9 +267,18 @@ def get_available_ids():
 
 
 def generate_random_name():
-    colors = ['red', 'blue', 'green', 'pink', 'yellow']
-    animals = ['cat', 'dog', 'fish', 'camel', 'elephant']
-
+    colors = [
+        'Red', 'Blue', 'Green', 'Yellow', 'Purple',
+        'Orange', 'Pink', 'Brown', 'Gray', 'Black',
+        'White', 'Turquoise', 'Gold', 'Silver', 'Maroon',
+        'Navy', 'Cyan', 'Magenta', 'Lime', 'Teal'
+    ]
+    animals = [
+        'Dog', 'Cat', 'Elephant', 'Giraffe', 'Lion',
+        'Monkey', 'Tiger', 'Zebra', 'Kangaroo', 'Penguin',
+        'Panda', 'Koala', 'Hippopotamus', 'Gorilla', 'Polar Bear',
+        'Snake', 'Cheetah', 'Ostrich', 'Dolphin', 'Kangaroo'
+    ]
     while True:
         random_name = f"{random.choice(colors)}-{random.choice(animals)}"
         if not Trial.objects.filter(student_id=random_name).exists():
@@ -370,8 +379,6 @@ def feedback(request, task_number):
                 return redirect('duck_code_editor:without_instructions')
             else:
                 return redirect('duck_code_editor:code_editor', task_number=task_number+1)
-        
-        
 
     return render(request, 'duck_code_editor/complexity_feedback.html')
 
