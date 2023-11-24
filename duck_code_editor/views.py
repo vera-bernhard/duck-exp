@@ -2,6 +2,7 @@
 import json
 import random
 import subprocess
+import signal
 
 import regex as re
 from django.http import HttpResponseBadRequest
@@ -236,17 +237,31 @@ def survey_complete(request):
 def execute_code(code):
     try:
         # Use subprocess to run the code in a separate process
-        result = subprocess.check_output(
-            ["python", "-c", code], stderr=subprocess.STDOUT, text=True)
-        return result.strip()
-    except subprocess.CalledProcessError as e:
-        # Handle errors, if any
-        return f"Error: {e.output.strip()}"
+        result = subprocess.run(
+            ["python", "-c", code],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=10  # Set a timeout of 10 seconds
+        )
+        
+        # Check if the process timed out
+        if result.returncode == -signal.SIGTERM:
+            return "Error: Code execution timed out (took more than 10 seconds). Please refactor your code."
+        
+        # Check for subprocess execution errors
+        if result.returncode != 0:
+            return f"Error: {result.stderr.strip()}"
+        
+        return result.stdout.strip()
+
+    except subprocess.TimeoutExpired:
+        # Handle timeout (code takes more than 10s)
+        return "Error: Code execution timed out (took more than 10 seconds). Please refactor your code."
     
     except Exception as e:
         # Handle other exceptions (e.g., runtime errors in the code)
         return f"Error: {str(e)}"
-
 
 def load_tasks(json_file_path):
     try:
