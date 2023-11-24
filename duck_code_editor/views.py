@@ -15,6 +15,8 @@ NR_OF_TASKS = 2
 
 TASK_SETS = ['task_set_a', 'task_set_b']
 
+# TODO: Use execution api instead of local subprocess to run code
+
 
 def code_editor(request, task_number):
 
@@ -240,6 +242,10 @@ def execute_code(code):
     except subprocess.CalledProcessError as e:
         # Handle errors, if any
         return f"Error: {e.output.strip()}"
+    
+    except Exception as e:
+        # Handle other exceptions (e.g., runtime errors in the code)
+        return f"Error: {str(e)}"
 
 
 def load_tasks(json_file_path):
