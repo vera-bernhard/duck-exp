@@ -247,7 +247,7 @@ def execute_code(code):
         
         # Check if the process timed out
         if result.returncode == -signal.SIGTERM:
-            return "Error: Code execution timed out (took more than 10 seconds). Please refactor your code."
+            return "Error: Execution timed out (> 10 seconds).\n Please refactor."
         
         # Check for subprocess execution errors
         if result.returncode != 0:
