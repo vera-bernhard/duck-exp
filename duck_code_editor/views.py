@@ -91,11 +91,12 @@ def code_editor(request, task_number):
 
     else:
         if task_number == 0:
-            # create Trial instance
-            Trial.objects.create(
-                student_id=selected_study_id,
-                group=task_set_name,
-            )
+            # create Trial instance or get existing one
+            if not Trial.objects.filter(student_id=selected_study_id).exists():
+                Trial.objects.create(
+                    student_id=selected_study_id,
+                    group=task_set_name,
+                )
 
         # Initialize the form with the code from the current task
         current_task_instance = Trial_Task.objects.create(
