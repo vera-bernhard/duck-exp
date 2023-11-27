@@ -16,9 +16,6 @@ NR_OF_TASKS = 3
 
 TASK_SETS = ['task_set_a', 'task_set_b']
 
-# TODO: Use execution api instead of local subprocess to run code
-
-
 def code_editor(request, task_number):
 
     # Retrieve the study_id from the session

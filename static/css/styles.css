@@ -9,17 +9,18 @@
   border: 1px solid #282c34; /* Example border color */
   white-space: pre-wrap;
   flex-shrink: 0; 
-  width: 500px; 
-  height: 300px;
+  width: 550px; 
+  height: 450px;
   align-self: flex-end;
-}
-
-.django-ace-editor {
-  width: 500px;
 }
 
 .django-ace-toolbar {
   display: none;
+}
+
+.django-ace-widget {
+  height: 450px !important;
+  width: 550px !important;
 }
 
 .container {
