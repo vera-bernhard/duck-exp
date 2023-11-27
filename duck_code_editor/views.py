@@ -80,7 +80,7 @@ def code_editor(request, task_number):
             if form.is_valid():
                 code_snippet = form.save()
                 try:
-                    output = execute_code(code_snippet.code)
+                    output = '\n' + execute_code(code_snippet.code)
                 except Exception as e:
                     output = f"Error: {e}"
             else:
@@ -133,7 +133,6 @@ def code_editor(request, task_number):
 def code_editor_duck(request, task_number):
     # Retrieve the study_id from the session
     selected_study_id = request.session.get('selected_study_id')
-    print(f'study_id: {selected_study_id}, task_number: {task_number}')
 
     with open('tasks/task_assignment.json', 'r') as assignment_file:
         study_assignment = json.load(assignment_file)
@@ -183,13 +182,12 @@ def code_editor_duck(request, task_number):
             return redirect('duck_code_editor:feedback_duck', task_number=task_number)
 
         elif 'run_code' in request.POST:
-            print('run_code')
             # If 'Run Code' button is pressed, execute the code
             form = CodeSnippetForm(request.POST)
             if form.is_valid():
                 code_snippet = form.save()
                 try:
-                    output = execute_code(code_snippet.code)
+                    output = '\n' + execute_code(code_snippet.code)
                 except Exception as e:
                     output = f"Error: {e}"
             else:
