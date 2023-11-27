@@ -6,27 +6,27 @@
   <form method="post" action="">
     {% csrf_token %}
     <div class="likert-question">
-      <p>How complex did you find the previous task?</p>
+      <p>How difficult did you find the previous task?</p>
       <div class="likert-options">
         <label class="likert-option">
-          <span class="likert-label">Very simple</span>
-          <input type="radio" name="complexity" value="Very simple" required />
+          <span class="likert-label">Very Easy</span>
+          <input type="radio" name="complexity" value="Very Easy" required />
         </label>
         <label class="likert-option">
-          <span class="likert-label">Somewhat Simple</span>
-          <input type="radio" name="complexity" value="Somewhat Simple" required />
+          <span class="likert-label">Somewhat Easy</span>
+          <input type="radio" name="complexity" value="Somewhat Easy" required />
         </label>
         <label class="likert-option">
           <span class="likert-label">Neutral</span>
           <input type="radio" name="complexity" value="Neutral" required />
         </label>
         <label class="likert-option">
-          <span class="likert-label">Somewhat Complex</span>
-          <input type="radio" name="complexity" value="Somewhat Complex" required />
+          <span class="likert-label">Somewhat Difficult</span>
+          <input type="radio" name="complexity" value="Somewhat Difficult" required />
         </label>
         <label class="likert-option">
-          <span class="likert-label">Very Complex</span>
-          <input type="radio" name="complexity" value="Very Complex" required />
+          <span class="likert-label">Very Difficult</span>
+          <input type="radio" name="complexity" value="Very Difficult" required />
         </label>
       </div>
 
@@ -55,7 +55,7 @@
       </div>
 
       {% if duck %}
-      <p>I talked to my rubber duck the whole time during the previous task.</p>
+      <p>I consistently voiced all of my thoughts, out loud, to the rubber duck.</p>
       <div class="likert-options">
         <label class="likert-option">
             <span class="likert-label">Strongly Disagree</span>
