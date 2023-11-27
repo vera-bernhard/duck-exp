@@ -87,68 +87,71 @@
 </div>
 
 <!-- Add this script at the end of your HTML file or within a scripts block -->
-
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Set the total time limit and warning time in seconds
-    const timeLimit = 600; // 10 minutes
-    const warningTime = 540; // 9 minutes (1 minute before the total time limit)
+document.addEventListener("DOMContentLoaded", function () {
+  var buttonPressed = false;
+  // Set the total time limit and warning time in seconds
+  const timeLimit = 600; // 10 minutes
+  const warningTime = 60; // 9 minutes (1 minute before the total time limit)
 
-    // Function to display a warning message
-    function displayWarning() {
-      // Display the warning message next to the "Next Task" button
-      document.getElementById("warning").style.display = "inline";
+  // Function to display a warning message
+  function displayWarning() {
+    // Display the warning message next to the "Next Task" button
+    document.getElementById("warning").style.display = "inline";
+  }
+
+  // Function to redirect to the feedback page by clicking the "Next" button
+  function redirectToFeedback() {
+    // Click the existing "Next Task" button
+    document.getElementById("nextButton").click();
+  }
+
+  // Function to update the countdown timer
+  function updateTimerDisplay() {
+    // If the "Next Task" button has been pressed, stop the countdown
+    if (buttonPressed) {
+      return;
     }
 
-    // Function to redirect to the feedback page by clicking the "Next" button
-    function redirectToFeedback() {
-      // Click the existing "Next Task" button
-      document.getElementById("nextButton").click();
+    // Display the remaining time on the page
+    // document.getElementById("timer").innerText = remainingTime;
+
+    // If it's time to display the warning, call the displayWarning function
+    if (remainingTime === warningTime) {
+      displayWarning();
     }
 
-    // Function to update the countdown timer
-    function updateTimerDisplay() {
-      // Display the remaining time on the page
-      // document.getElementById("timer").innerText = remainingTime;
+    // If the time has run out, call the redirectToFeedback function
+    if (remainingTime === 0) {
+      // reset the remaining time
+      localStorage.removeItem("remainingTime");
+      redirectToFeedback();
+    } else {
+      // Decrement the remaining time
+      remainingTime--;
+      // console.log("remaining_time:", remainingTime);
 
-      // If it's time to display the warning, call the displayWarning function
-      if (remainingTime === warningTime) {
-        displayWarning();
-      }
+      // Save the remaining time to local storage
+      localStorage.setItem("remainingTime", remainingTime);
 
-      // If the time has run out, call the redirectToFeedback function
-      if (remainingTime === 0) {
-        // reset the remaining time
-        localStorage.removeItem("remainingTime");
-        redirectToFeedback();
-      } else {
-        // Decrement the remaining time
-        remainingTime--;
-        // console.log("remaining_time:", remainingTime);
-
-        // Save the remaining time to local storage
-        localStorage.setItem("remainingTime", remainingTime);
-
-        // Schedule the next update after 1 second
-        setTimeout(updateTimerDisplay, 1000);
-      }
+      // Schedule the next update after 1 second
+      setTimeout(updateTimerDisplay, 1000);
     }
+  }
 
-    // Event listener for the "Next Task" button
-    document
-      .getElementById("nextButton")
-      .addEventListener("click", function () {
-        // Remove the remaining time from local storage
-        localStorage.removeItem("remainingTime");
-      });
-
-    // Initialize the remaining time from local storage or use the total time limit
-    let remainingTime =
-      parseInt(localStorage.getItem("remainingTime")) || timeLimit;
-
-    // Initialize the countdown timer
-    updateTimerDisplay();
+  // Event listener for the "Next Task" button
+  document.getElementById("nextButton").addEventListener("click", function () {
+    // Remove the remaining time from local storage
+    localStorage.removeItem("remainingTime");
+    buttonPressed = true;
   });
+
+  // Initialize the remaining time from local storage or use the total time limit
+  let remainingTime = parseInt(localStorage.getItem("remainingTime")) || timeLimit;
+
+  // Initialize the countdown timer
+  updateTimerDisplay();
+});
 </script>
 
 {% endblock %}
