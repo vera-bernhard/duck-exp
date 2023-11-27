@@ -1,16 +1,24 @@
 [
   {
-    "title": "Average calculation",
-    "description": "This code does this and that.",
-    "code_to_debug": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)\nprint(calculate_average([1, 2, 3, 4, 5]))",
-    "expected_output": "Calculate the average of a list of numbers",
-    "complexity": "4"
+    "title": "Confused Decoder",
+    "description": " This is a decoding algorithm. It decodes words that were encrypted according to the following rules:<br>1. Move over the letters of a string from left to right<br>2. The first letter gets shifted forward one spot in the alphabet (e.g. a->b, n->o, ...)<br>3. If the previous letter (before encoding) was NOT a vowel (a, e, i, o, u), then increase the shift distance by 1<br>4. Continue until the entire string has been encoded<br>Input strings will always only contain lower case letters. Remember that the above rules describe the encryption algorithm. This is the corresponding decryption algorithm.",
+    "code_to_debug": "def confused_decoder(cipher):\n    \"\"\"\n     INPUT:\n    \"ignos\"\n    \"mqnc\"\n    \"bcegijl\"\n\n    OUTPUT:\n    \"hello\"\n    \"lolz\"\n    \"abcdefg\"\n    \"\"\"\n    alphabet = \"abcdefghijklmopqrstuvwxyz\"\n    jump = 1\n    message = \"\"\n\n    for i in range(len(cipher)):\n        letter = cipher[i]\n        for j in range(len(alphabet)):\n            if alphabet[j] == letter:\n                decoded_letter = alphabet[(jump%26)-j]#\n                message += decoded_letter\n                if decoded_letter not in \"aeiou\":\n                    ++jump\n\n    return message\n\n# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.\n# print(confused_decoder(\"ignos\"))\n# print(confused_decoder(\"mqnc\"))\n# print(confused_decoder(\"bcegijl\"))\n",
+    "expected_output": "",
+    "complexity": ""
   },
   {
-    "title": "Some logical errors",
-    "description": "Identify and fix the logical error",
-    "code_to_debug": "def is_prime(n):\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True\nprint(is_prime(5))",
-    "expected_output": "Determine if a number is prime",
-    "complexity": "4"
+    "title": "Parentheses Checker",
+    "description": "Given an integer n, print out all possible ways in which n pairs of parentheses could be legally written. Keep in mind that this algorithm prints its output, it does not return anything.",
+    "code_to_debug": "def all_parentheses(n):\n    \"\"\"\n    INPUT: 2\n    OUTPUT:\n    {}{}\n    {{}}\n\n    INPUT: 3\n    OUTPUT:\n    {}{}{}\n    {}{{}}\n    {{}}{}\n    {{}{}{}}\n    {{{}}}\n\n    INPUT: 4\n    OUTPUT:\n    {}{}{}{}\n    {}{}{{}}\n    {}{{}}{}\n    {}{{}{}{}}\n    {}{{{}}}\n    {{}}{}{}\n    {{}}{{}}\n    {{}{}}{}\n    {{}{}{}}\n    {{}{{}}}\n    {{{}}}{}}\n    {{{}}{}}\n    {{{}{}}}\n    {{{{}}}}\n    \"\"\"\n    if n > 0:\n        all_parentheses_rec([\"\"] * 2 * n, 0, 0, 0, 0)\n \n\ndef all_parentheses_rec(str, pos, n, open, close):\n    if close == n:\n        print(''.join(str))\n        return\n    else:\n        if (open >= close):\n            str[pos] = '}'\n            all_parentheses_rec(str, pos, n, open, close + 1)\n        if (open < n):\n            str[pos] = '{'\n            all_parentheses_rec(str, pos, n, open + 1, close)\n\n# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.\n# all_parentheses(2)\n# all_parentheses(3)\n# all_parentheses(4)\n"
+    ,
+    "expected_output": "",
+    "complexity": ""
+  },
+  {
+    "title": "Word Builder",
+    "description": "You are given a list of words and a bucket string as input. The bucket string is simply a bunch of letters with no spaces.\nThis algorithm then checks, for each word in the list, whether it can be written by using the letters found in the bucket string.\nHowever, you can only move from left to right in the bucket string. For example:\n    - The word 'no' CAN be constructed from the bucket string 'gnjo' (there is an 'n' and then an 'o' later on)\n    - The word 'no' CANNOT be constructed from the bucket string 'on' (there is no more 'o' after the 'n')\nFinally, the results of the algorithm are visually printed as shown below.Keep in mind that this algorithm prints its output, it does not return anything.HINT: Be very careful to check every example output of this function... some of the bugs have quite subtle effects.",
+    "code_to_debug": "def word_builder(words, bucket):\n    \"\"\"\n    INPUT: [\"pup\", \"pupper\", \"puppies\", \"pups\"], \"ppupppsuer\"\n    OUTPUT:\n    ppupppsuer\n    p.up\n    p.upp...er\n    p.up..s\n\n    INPUT: [\"hello\", \"hi\", \"hey\", \"whelp\", \"whey\", \"well\"], \"hewelihylo\"\n    OUTPUT:\n    hewelihylo\n    he..l...lo\n    h....i\n    he.....y\n    ..wel...l\n\n    INPUT: [\"aaa\"], \"bbbaaa\"\n    OUTPUT:\n    bbbaaa\n    ...aaa\n    \"\"\"\n    all_results = []\n    for word in words:\n        last_letter = -1\n        word_result = []\n        for letter in word:\n            for i in range(last_letter, len(bucket)):\n                if bucket[i] != letter and not i in word_result:\n                    last_letter = i\n                    word_result = word_result + [i]\n                    break\n        if len(word_result) != len(word):\n            word_result = \"Not buildable.\"\n        word_result = [word_result]\n        all_results = all_results + word_result\n    print(bucket)\n    for result in all_results:\n        if result != \"Not buildable.\":\n            last_printed_letter = -1\n            for i in result:\n                for j in range(i-last_printed_letter):\n                    print('.', end='')\n                print(bucket[i], end='')\n            print('')\n\n# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.\n# word_builder([\"pup\", \"pupper\", \"puppies\", \"pups\"], \"ppupppsuer\")\n# word_builder([\"hello\", \"hi\", \"hey\", \"whelp\", \"whey\", \"well\"], \"hewelihylo\")\n# word_builder([\"aaa\"], \"bbbaaa\")\n",
+    "expected_output": "",
+    "complexity": ""
   }
 ]

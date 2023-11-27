@@ -1,16 +1,24 @@
 [
     {
-        "title": "Division by zero",
-        "description": "This programm does xy",
-        "code_to_debug": "def buggy_function():\n    return 5 / 0\n   \nbuggy_function()",
-        "expected_output": "Handle the division by zero error",
-        "complexity": "4"
+        "title": "Eager tunneler",
+        "description": "A miner ('X') is trying to reach a tunnel's exit ('E') by moving down row by row in a nested list. On the way down, the miner wants to pick up every treasure capsule ('?'). Return a list of numbers, telling the miner how much to the left/right they have to move each row to complete their goal. Moving to the right is represented by positive numbers, and moving left by negative numbers.",
+        "code_to_debug": "def eager_tunneler(tunnel):\n    \"\"\"\n    INPUT:\n    [\"X....................\",\n     \".......?.............\",\n     \"..............?......\",\n     \"..............?......\",\n     \"....?................\",\n     \"..............E......\"]\n\n    OUTPUT:\n    [7, 7, 0, -10, 10]\n    \"\"\"\n    path = []\n    tunnel_width = len(tunnel)\n    miner_pos = 0\n    \n    for i in range(1, len(tunnel)):\n        for j in range(tunnel_width):\n            if '?' in tunnel[i] or 'E' in tunnel[i]:\n                path += [miner_pos-j]\n\n    return path\n\n# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.\n# print(eager_tunneler([\"X....................\",\n#                       \".......?.............\",\n#                       \"..............?......\",\n#                       \"..............?......\",\n#                       \"....?................\",\n#                       \"..............E......\"]))\n"
+        ,
+        "expected_output": "",
+        "complexity": ""
     },
     {
-        "title": "Hello world",
-        "description": "This programm does xy",
-        "code_to_debug": "def print_message():\n    print('Hello, World!')\n   \nprint_message()",
-        "expected_output": "Hello, World!",
-        "complexity": "4"
+        "title": "Longest Palindrome",
+        "description": "Given a string, find the length of the longest palindromic substring. A palindrome is a string that remains the same when reversed (e.g. eye).",
+        "code_to_debug": "def longest_palindrome(str):\n    \"\"\"\n    INPUT: \"aabbbaaa\"\n    OUTPUT: 7\n    \n    INPUT: \"elepel\"\n    OUTPUT: 5\n    \n    INPUT: \"a\"\n    OUTPUT: 1\n    \"\"\"\n    k = len(str) - 1\n    if k > 0:\n        return longest_palindrome_rec(str, 0, k, 0)\n    return 0\n\ndef longest_palindrome_rec(word, i, j, count): \n    if i > j : \n        return count \n    if i == j : \n        return count\n    if word[i] == word[j] : \n        count = longest_palindrome_rec(word, i + 1, j - 1, count + 2) \n        return max(count, max(longest_palindrome_rec(word, i + 1, j, count), longest_palindrome_rec(word, i, j - 1, count))) \n    \n    return max( longest_palindrome_rec(word, i + 1, j, count), longest_palindrome_rec(word, i, j - 1, count)) \n\n# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.\n# print(longest_palindrome(\"aabbbaaa\"))\n# print(longest_palindrome(\"elepel\"))\n# print(longest_palindrome(\"a\"))\n",
+        "expected_output": "",
+        "complexity": ""
+    },
+    {
+        "title": "Printing a Diamond",
+        "description": "Given an integer n, print out a diamond of size n according to the pattern displayed below. The diamond_printer() function prints out the result of this algorithm in the same way as below. There are NO bugs in the diamond_printer() function. HINT: If stuck, look at the pattern in the example outputs. Under what conditions should you print '.' or '+'?",
+        "code_to_debug": "def diamond_factory(size):\n    \"\"\"\n    INPUT: 1\n    OUTPUT:\n    .\n\n    INPUT: 2\n    OUTPUT:\n     .\n    . .\n     .\n\n    INPUT: 3\n    OUTPUT:\n      .\n     . .\n    . + .\n     . .\n      .\n\n    INPUT: 4\n    OUTPUT:\n       .\n      . .\n     . + .\n    . + + .\n     . + .\n      . .\n       .\n\n    INPUT: 5\n    OUTPUT:\n        .\n       . .\n      . + .\n     . + + .\n    . + . + .\n     . + + .\n      . + .\n       . .\n        .\n    \"\"\"\n    diamond = []\n\n    for layer in range(1, size):\n        dot = True\n        layer_offset = size - layer\n        layer_result = []\n        for _ in range(layer_offset):\n            layer_result.append(' ')\n        for i in range(layer):\n            if i >= 1:\n                layer_result.append(' ')\n            if layer % 2 == 0:\n                if dot:\n                    layer_result.append('.')\n                else:\n                    layer_result.append('+')\n            else:\n                if dot:\n                    layer_result.append('.')\n                else:\n                    layer_result.append('+')\n            dot = not dot\n        for _ in range(layer_offset):\n            layer_result.append(' ')\n    \n    for i in reversed(diamond[:-1]):\n        diamond.append(i)\n\n    return diamond\n            \ndef diamond_printer(diamond):\n    for layer in diamond:\n        printed_layer = \"\"\n        for particle in layer:\n            printed_layer += particle\n        print(printed_layer)\n\n# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.\n# diamond_printer(diamond_factory(1))\n# diamond_printer(diamond_factory(2))\n# diamond_printer(diamond_factory(3))\n# diamond_printer(diamond_factory(4))\n# diamond_printer(diamond_factory(5))\n",
+        "expected_output": "",
+        "complexity": ""
     }
 ]

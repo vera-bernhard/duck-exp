@@ -1,7 +1,7 @@
 {
-    "title": "Average calculation",
-    "description": "This code does bliblablub",
-    "code_to_debug": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)\nprint(calculate_average([1, 2, 3, 4, 5]))",
-    "expected_output": "Calculate the average of a list of numbers",
+    "title": "Manual sum",
+    "description": "Given a list of numbers, calculate the sum of those numbers by using a for-loop.\nHINT: This task is very easy but should give an impression of the types of bugs you can expect. So, look at it carefully.",
+    "code_to_debug": "def manual_sum(lst):\n    \"\"\"\n    INPUT: [1, 2, 3, 4, 5]\n    OUTPUT: 15\n\n    INPUT: [3, 6, 9]\n    OUTPUT: 18\n    \"\"\"\n    total = 0\n    number = 0\n    for i in range(1, len(lst)):\n        number = lst[i]\n    return number\n\n# Uncomment the following lines to test your algorithm.\n# The output should perfectly match the given examples.\n# print(manual_sum([1, 2, 3, 4, 5]))\n# print(manual_sum([3, 6, 9]))",
+    "expected_output": "",
     "complexity": "4"
   }
