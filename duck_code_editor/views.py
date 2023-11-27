@@ -421,19 +421,54 @@ def feedback(request, task_number):
 
 def survey(request):
     if request.method == 'POST':
+        trial = Trial.objects.get(
+            student_id=request.session.get('selected_study_id'))
+
         # Save survey responses to the database
+        perception_q1 = request.POST.get('perception_q1')
+        perception_q2 = request.POST.get('perception_q2')
+        perception_q3 = request.POST.get('perception_q3')
+        perception_q4 = request.POST.get('perception_q4')
+        perception_q5 = request.POST.get('perception_q5')
+        perception_q6 = request.POST.get('perception_q6')
+        perception_q7 = request.POST.get('perception_q7')
+        big_five_q1 = request.POST.get('big_five_q1')
+        big_five_q2 = request.POST.get('big_five_q2')
+        big_five_q3 = request.POST.get('big_five_q3')
+        big_five_q4 = request.POST.get('big_five_q4')
+        big_five_q5 = request.POST.get('big_five_q5')
+        big_five_q6 = request.POST.get('big_five_q6')
+        big_five_q7 = request.POST.get('big_five_q7')
+        big_five_q8 = request.POST.get('big_five_q8')
+        big_five_q9 = request.POST.get('big_five_q9')
+        big_five_q10 = request.POST.get('big_five_q10')
         survey_q1 = request.POST.get('survey_q1')
         survey_q2 = request.POST.get('survey_q2')
         survey_q3 = request.POST.get('survey_q3')
 
-        trial = Trial.objects.get(
-            student_id=request.session.get('selected_study_id'))
 
         # Save to your model instance (replace YourModel with the actual name of your model)
         trial.survey_q1 = survey_q1
         trial.survey_q2 = survey_q2
         trial.survey_q3 = survey_q3
-
+        trial.perception_q1 = perception_q1
+        trial.perception_q2 = perception_q2
+        trial.perception_q3 = perception_q3
+        trial.perception_q4 = perception_q4
+        trial.perception_q5 = perception_q5
+        trial.perception_q6 = perception_q6
+        trial.perception_q7 = perception_q7
+        trial.big_five_q1 = big_five_q1
+        trial.big_five_q2 = big_five_q2
+        trial.big_five_q3 = big_five_q3
+        trial.big_five_q4 = big_five_q4
+        trial.big_five_q5 = big_five_q5
+        trial.big_five_q6 = big_five_q6
+        trial.big_five_q7 = big_five_q7
+        trial.big_five_q8 = big_five_q8
+        trial.big_five_q9 = big_five_q9
+        trial.big_five_q10 = big_five_q10
+        
         trial.save()
 
         return redirect('duck_code_editor:survey_complete')
