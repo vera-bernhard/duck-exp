@@ -16,8 +16,10 @@ class Trial(models.Model):
     test_task = models.ForeignKey('Trial_Task', related_name='test_task', on_delete=models.CASCADE, null=True, default=None)
     task_1 = models.ForeignKey('Trial_Task', related_name='task_1', on_delete=models.CASCADE, null=True, default=None)
     task_2 = models.ForeignKey('Trial_Task', related_name='task_2', on_delete=models.CASCADE, null=True, default=None)
+    task_3 = models.ForeignKey('Trial_Task', related_name='task_3', on_delete=models.CASCADE, null=True, default=None)
     task_1_duck = models.ForeignKey('Trial_Task', related_name='task_1_duck', on_delete=models.CASCADE, null=True, default=None)
     task_2_duck = models.ForeignKey('Trial_Task', related_name='task_2_duck', on_delete=models.CASCADE, null=True, default=None)
+    task_3_duck = models.ForeignKey('Trial_Task', related_name='task_3_duck', on_delete=models.CASCADE, null=True, default=None)
     survey_q1 = models.CharField(max_length=50, null=True, default=None)
     survey_q2 = models.CharField(max_length=50, null=True, default=None)
     survey_q3 = models.CharField(max_length=50, null=True, default=None)
@@ -30,7 +32,10 @@ class Trial_Task(models.Model):
     end_time = models.DateTimeField(default=None, null=True)
     duration = models.DurationField(default=None, null=True)
     solved_with_duck = models.BooleanField()
-    perceived_complexity = models.CharField(max_length=50, null=True)    
+    perceived_complexity = models.CharField(max_length=50, null=True)
+    familiarity = models.CharField(max_length=50, null=True)
+    talking = models.CharField(max_length=50, null=True)
+    silence = models.CharField(max_length=50, null=True)
 
     # Foreign key to the Task model to link the specific task details
     # task = models.ForeignKey(Task, on_delete=models.CASCADE)
