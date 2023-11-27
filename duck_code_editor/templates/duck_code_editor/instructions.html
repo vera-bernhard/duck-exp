@@ -3,11 +3,39 @@
 
 <div class="container">
   <h2>Instructions</h2>
-  <p>
-    Please read and follow the instructions before each task! The results of our
-    experiment hinge on it.
-  </p>
   <ol>
+    <li>
+      <p>
+        Please read and follow the instructions before each task! The results of
+        our experiment hinge on it.
+      </p>
+    </li>
+    <li>
+      <p>
+        Each task is a Python function that compiles correctly but produces
+        incorrect or unexpected output. Hence, your goal is to debug these
+        pieces of code. All bugs are either
+      </p>
+      <ul type"a">
+        <li>
+          <p>
+            short lines of code that are missing to make the algorithm work,
+            or
+          </p>
+        </li>
+        <li>
+          <p>
+            errors in code logic (e.g., incorrect manipulation of variables,
+            wrong indexing, incomplete conditions, ...)
+          </p>
+        </li>
+      </ul>
+      <p>
+        You will NOT have to add or remove any control flow structures
+        (for-loops, if statements, ...) in ANY of the tasks. You MIGHT, however,
+        have to edit their conditions.
+      </p>
+    </li>
     <li>
       <p>
         Each task will be introduced by a description of the code, some example
@@ -15,16 +43,6 @@
         the examples.
       </p>
     </li>
-
-    <li>
-      <p>
-        You will receive a piece of code that compiles correctly but produces
-        incorrect or unexpected output. In other words, all bugs are of a
-        semantic nature: There is something wrong with the logic of the code,
-        NOT the syntax, style, or organisation of it.
-      </p>
-    </li>
-
     <li>
       <p>
         Do NOT use external tools during debugging. You may only rely on your
@@ -44,6 +62,10 @@
     </li>
 
     <li>
+      <p>Do NOT refresh the page or use the back button in your browser.</p>
+    </li>
+
+    <li>
       <p>
         When you think your code is corrected, or when you decide you cannot fix
         it, please press next. You will not be able to return after proceeding,
@@ -51,9 +73,9 @@
       </p>
     </li>
   </ol>
-  <p>Let’s proceed with a test task to get you warmed up.</p>
+  <p>Let’s proceed with a tutorial task to get you warmed up.</p>
   <form method="post" action="{% url 'duck_code_editor:instructions' %}">
-    {% csrf_token %}    
+    {% csrf_token %}
     <button class="btn btn-secondary" style="display: block" type="submit">
       Next
     </button>

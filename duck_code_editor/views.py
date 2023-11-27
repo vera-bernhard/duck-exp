@@ -12,7 +12,7 @@ from django.utils import timezone
 from .forms import CodeSnippetForm
 from .models import Trial, Trial_Task
 
-NR_OF_TASKS = 2
+NR_OF_TASKS = 3
 
 TASK_SETS = ['task_set_a', 'task_set_b']
 
@@ -245,24 +245,25 @@ def execute_code(code):
             text=True,
             timeout=10  # Set a timeout of 10 seconds
         )
-        
+
         # Check if the process timed out
         if result.returncode == -signal.SIGTERM:
             return "Error: Execution timed out (> 10 seconds).\n Please refactor."
-        
+
         # Check for subprocess execution errors
         if result.returncode != 0:
             return f"Error: {result.stderr.strip()}"
-        
+
         return result.stdout.strip()
 
     except subprocess.TimeoutExpired:
         # Handle timeout (code takes more than 10s)
         return "Error: Code execution timed out (took more than 10 seconds). Please refactor your code."
-    
+
     except Exception as e:
         # Handle other exceptions (e.g., runtime errors in the code)
         return f"Error: {str(e)}"
+
 
 def load_tasks(json_file_path):
     try:
@@ -365,11 +366,10 @@ def feedback(request, task_number):
     selected_study_id = request.session.get('selected_study_id')
     current_trial = Trial.objects.get(student_id=selected_study_id)
 
+    # depending on whether duck is in the URL as in task<nr>duck, redirect to the correct URL
+    regex_pattern = re.compile(r'task\d+duck')
+    duck_debugging = regex_pattern.search(request.path)
     if request.method == 'POST':
-        # depending on whether duck is in the URL as in task<nr>duck, redirect to the correct URL
-        regex_pattern = re.compile(r'task\d+duck')
-        duck_debugging = regex_pattern.search(request.path)
-
         if task_number == 0:
             current_trial_task = current_trial.test_task
 
@@ -390,9 +390,23 @@ def feedback(request, task_number):
 
         # Save the perceived complexity from the form submission
         perceived_complexity = request.POST.get('complexity')
+        familiarity = request.POST.get('familiarity')
+        talking = request.POST.get('talking')
+        silence = request.POST.get('silence')
+
         if perceived_complexity:
             current_trial_task.perceived_complexity = perceived_complexity
-            current_trial_task.save()
+
+        if familiarity:
+            current_trial_task.familiarity = familiarity
+
+        if talking:
+            current_trial_task.talking = talking
+
+        if silence:
+            current_trial_task.silence = silence
+
+        current_trial_task.save()
 
         if duck_debugging:
             return redirect('duck_code_editor:code_editor_duck', task_number=task_number+1)
@@ -402,7 +416,10 @@ def feedback(request, task_number):
             else:
                 return redirect('duck_code_editor:code_editor', task_number=task_number+1)
 
-    return render(request, 'duck_code_editor/complexity_feedback.html')
+    return render(request, 'duck_code_editor/complexity_feedback.html', {
+        'duck': duck_debugging,
+        'test': task_number == 0,
+    })
 
 
 def survey(request):

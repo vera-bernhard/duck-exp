@@ -10,12 +10,12 @@
 >
   <div style="flex: 1">
     {%if task_number == 0%}
-    <h2>PART 1: Test Task</h2>
+    <h2>PART 1: Tutorial Task</h2>
     <p>
       This first task is meant to familiarise yourself with the format of the
-      debugging tasks throughout this form.
+      debugging tasks throughout this form. Simply debug this task as you
+      normally would to get warmed up.
     </p>
-    <p><b>Simply debug this task as you normally would to get warmed up.</b></p>
     {%else%}
     <h2>Task {{ task_number }}</h2>
 
@@ -47,7 +47,7 @@
           value="true"
           class="btn btn-primary"
         >
-          Run Code
+          &#9658; Run Code
         </button>
 
         {% csrf_token %} {{ form.as_p }}
@@ -62,7 +62,7 @@
         >
           Next
         </button>
-        <span id="warning" style="color: red; margin-top: 10px; display: none;">
+        <span id="warning" style="color: red; margin-top: 10px; display: none">
           1 min. remaining. Write down your final solution.
         </span>
         <!-- Countdown timer -->

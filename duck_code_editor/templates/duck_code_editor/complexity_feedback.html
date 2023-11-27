@@ -13,22 +13,98 @@
           <input type="radio" name="complexity" value="Very simple" required />
         </label>
         <label class="likert-option">
-          <span class="likert-label">Simple</span>
-          <input type="radio" name="complexity" value="Simple" required />
+          <span class="likert-label">Somewhat Simple</span>
+          <input type="radio" name="complexity" value="Somewhat Simple" required />
         </label>
         <label class="likert-option">
           <span class="likert-label">Neutral</span>
           <input type="radio" name="complexity" value="Neutral" required />
         </label>
         <label class="likert-option">
-          <span class="likert-label">Complex</span>
-          <input type="radio" name="complexity" value="Complex" required />
+          <span class="likert-label">Somewhat Complex</span>
+          <input type="radio" name="complexity" value="Somewhat Complex" required />
         </label>
         <label class="likert-option">
-          <span class="likert-label">Very complex</span>
-          <input type="radio" name="complexity" value="Very complex" required />
+          <span class="likert-label">Very Complex</span>
+          <input type="radio" name="complexity" value="Very Complex" required />
         </label>
       </div>
+
+      <p>I was familiar with the algorithm in the previous task.</p>
+      <div class="likert-options">
+      <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input type="radio" name="familiarity" value="Strongly Disagree" required />
+      </label>
+      <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input type="radio" name="familiarity" value="Somewhat Disagree" required />
+      </label>
+      <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="familiarity" value="Neutral" required />
+      </label>
+      <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input type="radio" name="familiarity" value="Somewhat Agree" required />
+      </label>
+      <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input type="radio" name="familiarity" value="Strongly Agree" required />
+      </label>
+      </div>
+
+      {% if duck %}
+      <p>I talked to my rubber duck the whole time during the previous task.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+            <span class="likert-label">Strongly Disagree</span>
+            <input type="radio" name="talking" value="Strongly Disagree" required />
+        </label>
+        <label class="likert-option">
+            <span class="likert-label">Somewhat Disagree</span>
+            <input type="radio" name="talking" value="Somewhat Disagree" required />
+        </label>
+        <label class="likert-option">
+            <span class="likert-label">Neutral</span>
+            <input type="radio" name="talking" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+            <span class="likert-label">Somewhat Agree</span>
+            <input type="radio" name="talking" value="Somewhat Agree" required />
+        </label>
+        <label class="likert-option">
+            <span class="likert-label">Strongly Agree</span>
+            <input type="radio" name="talking" value="Strongly Agree" required />
+        </label>
+      </div>
+      {% elif test%}
+
+      {% else %}
+        <p>I remained completely silent during the previous task.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+            <span class="likert-label">Strongly Disagree</span>
+            <input type="radio" name="silence" value="Strongly Disagree" required />
+        </label>
+        <label class="likert-option">
+            <span class="likert-label">Somewhat Disagree</span>
+            <input type="radio" name="silence" value="Somewhat Disagree" required />
+        </label>
+        <label class="likert-option">
+            <span class="likert-label">Neutral</span>
+            <input type="radio" name="silence" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+            <span class="likert-label">Somewhat Agree</span>
+            <input type="radio" name="silence" value="Somewhat Agree" required />
+        </label>
+        <label class="likert-option">
+            <span class="likert-label">Strongly Agree</span>
+            <input type="radio" name="silence" value="Strongly Agree" required />
+        </label>
+      </div>
+      {% endif %}
     </div>
     <button class="btn btn-secondary" style="display: block" type="submit">
       Submit
