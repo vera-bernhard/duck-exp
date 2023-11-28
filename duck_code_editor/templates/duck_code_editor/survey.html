@@ -4,7 +4,7 @@ between topics {% endcomment %}
 <div class="container">
   <h2>Post-Study Questionnaire</h2>
   <form method="post" action="">
-    {% csrf_token %}
+    {% csrf_token %} 
     {% if error%}
     <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endif %}
@@ -13,10 +13,13 @@ between topics {% endcomment %}
       duck debugging:
     </h5>
     <div class="likert-question">
-    {% if missingId %}
-        <p>As there was an error, please insert your study id again (it should like e.g. s9 or Red-Giraffe): </p>
-        <input type="text" name="rewritten" required />
-    {% endif %}
+      {% if missingId %}
+      <div>
+        As there was an error, please insert your study id again (it should look like
+        e.g. s9 or Red-Giraffe):
+        <input type="text" style="width: 80px" name="rewritten" required />
+      </div>
+      {% endif %}
       <p>
         1. Talking to the rubber duck helped me complete the debugging tasks
       </p>

@@ -439,12 +439,14 @@ def feedback(request, task_number):
 
 def survey(request):
     selected_study_id = request.session.get('selected_study_id')
-
-    if selected_study_id is None:
+    rewritten_study_id = request.POST.get('rewritten')
+    
+    if selected_study_id is None and rewritten_study_id is None:
         error_message = "Study ID is unkown for some reason"
-        render(request, 'duck_code_editor/survey.html', {
+        return render(request, 'duck_code_editor/survey.html', {
             'error': error_message,
-            'missingId': True})
+            'missingId': True}
+        )
 
     if request.method == 'POST':
         try:
@@ -452,12 +454,11 @@ def survey(request):
                 trial = Trial.objects.get(
                     student_id=selected_study_id,)
             else:
-                rewritten_study_id = request.POST.get('rewritten')
                 trial = Trial.objects.get(
                     student_id=rewritten_study_id,)           
         except Trial.DoesNotExist:
-            error_message = "Study ID is unkown for some reason"
-            render(request, 'duck_code_editor/survey.html', {
+            error_message = f"Study ID '{rewritten_study_id}' could not be found in the database. Please check again whether you Study ID is correct."
+            return render(request, 'duck_code_editor/survey.html', {
                 'error': error_message,
                 'missingId': True})
             
@@ -510,7 +511,7 @@ def survey(request):
         # catch all errors
         except Exception as e:
             error_message = f"Error while saving data: {e}. Please contact Vera"
-            render(request, 'duck_code_editor/survey.html', {
+            return render(request, 'duck_code_editor/survey.html', {
                 'error': error_message
             })
 
