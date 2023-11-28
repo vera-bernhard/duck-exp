@@ -22,7 +22,7 @@ class Trial(models.Model):
     task_3_duck = models.ForeignKey('Trial_Task', related_name='task_3_duck', on_delete=models.CASCADE, null=True, default=None)
     survey_q1 = models.CharField(max_length=50, null=True, default=None)
     survey_q2 = models.CharField(max_length=50, null=True, default=None)
-    survey_q3 = models.CharField(max_length=2000, null=True, default=None)
+    survey_q3 = models.CharField(max_length=5000, null=True, default=None)
     perception_q1 = models.CharField(max_length=50, null=True, default=None)
     perception_q2 = models.CharField(max_length=50, null=True, default=None)
     perception_q3 = models.CharField(max_length=50, null=True, default=None)
