@@ -88,10 +88,16 @@
 <!-- Add this script at the end of your HTML file or within a scripts block -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+
+    // Set the start time if it hasn't been set already   
+    if (!localStorage.getItem("startTime")) {
+      localStorage.setItem("startTime", new Date());
+    } 
     var buttonPressed = false;
+
     // Set the total time limit and warning time in seconds
     const timeLimit = 600; // 10 minutes
-    const warningTime = 60; // 9 minutes (1 minute before the total time limit)
+    const warningTime = 60; // 1 minute before the total time limit
 
     // Function to display a warning message
     function displayWarning() {
@@ -105,36 +111,33 @@
       document.getElementById("nextButton").click();
     }
 
-    // Function to update the countdown timer
-    function updateTimerDisplay() {
-      // If the "Next Task" button has been pressed, stop the countdown
+    // Function to update the elapsed time display
+    function updateElapsedTime() {
+      let startTime = new Date(localStorage.getItem("startTime"));
+      // If the "Next Task" button has been pressed, stop updating the elapsed time
+      let elapsedTimeInSeconds = Math.floor(
+        (new Date() - startTime) / 1000
+      );
       if (buttonPressed) {
         return;
       }
 
-      // Display the remaining time on the page
-      // document.getElementById("timer").innerText = remainingTime;
 
       // If it's time to display the warning, call the displayWarning function
-      if (remainingTime <= warningTime) {
+      if (elapsedTimeInSeconds >= timeLimit - warningTime) {
         displayWarning();
       }
 
       // If the time has run out, call the redirectToFeedback function
-      if (remainingTime === 0) {
-        // reset the remaining time
-        localStorage.removeItem("remainingTime");
+      if (elapsedTimeInSeconds >= timeLimit) {
+        // Reset the stored start time
+        localStorage.removeItem("startTime");
         redirectToFeedback();
       } else {
-        // Decrement the remaining time
-        remainingTime--;
-        // console.log("remaining_time:", remainingTime);
-
-        // Save the remaining time to local storage
-        localStorage.setItem("remainingTime", remainingTime);
-
-        // Schedule the next update after 1 second
-        setTimeout(updateTimerDisplay, 1000);
+        // console.log(elapsedTimeInSeconds)
+        // Clear any existing timeout
+        // Schedule the next update after 1 second and store the timeout ID
+        setTimeout(updateElapsedTime, 1000);
       }
     }
 
@@ -142,18 +145,18 @@
     document
       .getElementById("nextButton")
       .addEventListener("click", function () {
-        // Remove the remaining time from local storage
-        localStorage.removeItem("remainingTime");
+        // Remove the stored start time from local storage
+        localStorage.removeItem("startTime");
         buttonPressed = true;
       });
 
-    // Initialize the remaining time from local storage or use the total time limit
-    let remainingTime =
-      parseInt(localStorage.getItem("remainingTime")) || timeLimit;
+    
+    
 
-    // Initialize the countdown timer
-    updateTimerDisplay();
+
+    updateElapsedTime();
   });
 </script>
+
 
 {% endblock %}
