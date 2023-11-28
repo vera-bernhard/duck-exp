@@ -5,9 +5,9 @@
     "s4": "task_set_a",
     "s5": "task_set_b",
     "s6": "task_set_a",
-    "s7": "task_set_b",
+    "s7": "task_set_a",
     "s8": "task_set_a",
-    "s9": "task_set_a",
+    "s9": "task_set_b",
     "s10": "task_set_b",
     "s11": "task_set_a",
     "s12": "task_set_a",
@@ -27,5 +27,6 @@
     "s26": "task_set_b",
     "s27": "task_set_a",
     "s28": "task_set_b",
-    "s29": "task_set_a"
+    "s29": "task_set_a",
+    "s30": "task_set_b"
   }
