@@ -1,0 +1,310 @@
+id,task_name,student_solution,start_time,end_time,duration,solved_with_duck,perceived_complexity,familiarity,talking,silence
+4,"""Printing a Diamond""","""def diamond_factory(size):
+    """"""
+    INPUT: 1
+    OUTPUT:
+    .
+
+    INPUT: 2
+    OUTPUT:
+     .
+    . .
+     .
+
+    INPUT: 3
+    OUTPUT:
+      .
+     . .
+    . + .
+     . .
+      .
+
+    INPUT: 4
+    OUTPUT:
+       .
+      . .
+     . + .
+    . + + .
+     . + .
+      . .
+       .
+
+    INPUT: 5
+    OUTPUT:
+        .
+       . .
+      . + .
+     . + + .
+    . + . + .
+     . + + .
+      . + .
+       . .
+        .
+    """"""
+    diamond = []
+
+    for layer in range(1, size+1):
+        dot = True
+        layer_offset = size - layer
+        layer_result = []
+        for _ in range(layer_offset):
+            layer_result.append(' ')
+        for i in range(layer):
+            if i >= 1:
+                layer_result.append(' ')
+            if layer % 2 == 0 and i >= layer/2:
+                if dot:
+                    layer_result.append('+')
+                else:
+                    layer_result.append('.')
+            else:
+                if dot:
+                    layer_result.append('.')
+                else:
+                    layer_result.append('+')
+            dot = not dot
+        for _ in range(layer_offset):
+            layer_result.append(' ')
+        diamond.append(layer_result)
+    
+    for i in reversed(diamond[:-1]):
+        diamond.append(i)
+
+    return diamond
+            
+def diamond_printer(diamond):
+    for layer in diamond:
+        printed_layer = """"
+        for particle in layer:
+            printed_layer += particle
+        print(printed_layer)
+
+# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.
+diamond_printer(diamond_factory(1))
+diamond_printer(diamond_factory(2))
+diamond_printer(diamond_factory(3))
+diamond_printer(diamond_factory(4))
+diamond_printer(diamond_factory(5))
+""",2023-11-28 12:59:53.701696+00:00,2023-11-28 13:01:28.291041+00:00,0:01:34.589345,False,"""Somewhat Difficult""","""Strongly Disagree""",,"""Strongly Agree"""
+1,"""Manual sum""","""def manual_sum(lst):
+    """"""
+    INPUT: [1, 2, 3, 4, 5]
+    OUTPUT: 15
+
+    INPUT: [3, 6, 9]
+    OUTPUT: 18
+    """"""
+    total = 0
+    number = 0
+    for i in range(0, len(lst)):
+        number = lst[i]
+        total += number
+    return total
+
+# Uncomment the following lines to test your algorithm.
+# The output should perfectly match the given examples.
+print(manual_sum([1, 2, 3, 4, 5]))
+print(manual_sum([3, 6, 9]))""",2023-11-28 12:54:58.137895+00:00,2023-11-28 12:55:37.997072+00:00,0:00:39.859177,False,"""Very Easy""","""Strongly Agree""",,
+2,"""Eager tunneler""","""def eager_tunneler(tunnel):
+    """"""
+    INPUT:
+    [""X...................."",
+     "".......?............."",
+     ""..............?......"",
+     ""..............?......"",
+     ""....?................"",
+     ""..............E......""]
+
+    OUTPUT:
+    [7, 7, 0, -10, 10]
+    """"""
+    path = []
+    tunnel_width = len(tunnel[0])
+    miner_pos = 0
+    
+    for i in range(1, len(tunnel)):
+        for j in range(tunnel_width):
+            pos = tunnel[i][j]
+            if pos == '?' or pos == 'E':
+                path += [j-miner_pos]
+                miner_pos = j
+
+    return path
+
+# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.
+print(eager_tunneler([""X...................."",
+                      "".......?............."",
+                      ""..............?......"",
+                      ""..............?......"",
+                      ""....?................"",
+                      ""..............E......""]))
+""",2023-11-28 12:55:54.132742+00:00,2023-11-28 12:57:35.062010+00:00,0:01:40.929268,False,"""Somewhat Easy""","""Strongly Disagree""",,"""Strongly Agree"""
+6,"""Parentheses Checker""","""def all_parentheses(n):
+    """"""
+    INPUT: 2
+    OUTPUT:
+    {}{}
+    {{}}
+
+    INPUT: 3
+    OUTPUT:
+    {}{}{}
+    {}{{}}
+    {{}}{}
+    {{}{}}
+    {{{}}}
+
+    INPUT: 4
+    OUTPUT:
+    {}{}{}{}
+    {}{}{{}}
+    {}{{}}{}
+    {}{{}{}}
+    {}{{{}}}
+    {{}}{}{}
+    {{}}{{}}
+    {{}{}}{}
+    {{}{}{}}
+    {{}{{}}}
+    {{{}}}{}
+    {{{}}{}}
+    {{{}{}}}
+    {{{{}}}}
+    """"""
+    if n > 0:
+        all_parentheses_rec([""""] * 2 * n, 0, n, 0, 0)
+ 
+
+def all_parentheses_rec(str, pos, n, open, close):
+    if close == n:
+        print(''.join(str))
+        return
+    else:
+        if (open > close):
+            str[pos] = '}'
+            all_parentheses_rec(str, pos + 1, n, open, close + 1)
+        if (open < n):
+            str[pos] = '{'
+            all_parentheses_rec(str, pos + 1, n, open + 1, close)
+
+# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.
+all_parentheses(2)
+all_parentheses(3)
+all_parentheses(4)
+""",2023-11-28 13:03:56.835905+00:00,2023-11-28 13:04:47.171243+00:00,0:00:50.335338,True,"""Neutral""","""Strongly Disagree""","""Somewhat Agree""",
+3,"""Longest Palindrome""","""def longest_palindrome(str):
+    """"""
+    INPUT: ""aabbbaaa""
+    OUTPUT: 7
+    
+    INPUT: ""elepel""
+    OUTPUT: 5
+    
+    INPUT: ""a""
+    OUTPUT: 1
+    """"""
+    k = len(str) - 1
+    if k >= 0:
+        return longest_palindrome_rec(str, 0, k, 0)
+    return 0
+
+def longest_palindrome_rec(word, i, j, count): 
+    if i > j : 
+        return count 
+    if i == j : 
+        return count + 1
+    if word[i] == word[j] : 
+        count = longest_palindrome_rec(word, i + 1, j - 1, count + 2) 
+        return max(count, max(longest_palindrome_rec(word, i + 1, j, 0), longest_palindrome_rec(word, i, j - 1, 0))) 
+    
+    return max( longest_palindrome_rec(word, i + 1, j, 0), longest_palindrome_rec(word, i, j - 1, 0)) 
+
+# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.
+print(longest_palindrome(""aabbbaaa""))
+print(longest_palindrome(""elepel""))
+print(longest_palindrome(""a""))
+""",2023-11-28 12:57:54.348475+00:00,2023-11-28 12:59:40.776575+00:00,0:01:46.428100,False,"""Somewhat Difficult""","""Somewhat Agree""",,"""Strongly Agree"""
+5,"""Confused Decoder""","""def confused_decoder(cipher):
+    """"""
+     INPUT:
+    ""ignos""
+    ""mqnc""
+    ""bcegijl""
+
+    OUTPUT:
+    ""hello""
+    ""lolz""
+    ""abcdefg""
+    """"""
+    alphabet = ""abcdefghijklmnopqrstuvwxyz""
+    jump = 1
+    message = """"
+
+    for i in range(len(cipher)):
+        letter = cipher[i]
+        for j in range(len(alphabet)):
+            if alphabet[j] == letter:
+                decoded_letter = alphabet[j-(jump%26)]
+                message += decoded_letter
+                if decoded_letter not in ""aeiou"":
+                    jump += 1
+
+    return message
+
+# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.
+print(confused_decoder(""ignos""))
+print(confused_decoder(""mqnc""))
+print(confused_decoder(""bcegijl""))
+""",2023-11-28 13:02:18.547440+00:00,2023-11-28 13:03:41.451484+00:00,0:01:22.904044,True,"""Neutral""","""Somewhat Agree""","""Somewhat Agree""",
+7,"""Word Builder""","""def word_builder(words, bucket):
+    """"""
+    INPUT: [""pup"", ""pupper"", ""puppies"", ""pups""], ""ppupppsuer""
+    OUTPUT:
+    ppupppsuer
+    p.up
+    p.upp...er
+    p.up..s
+
+    INPUT: [""hello"", ""hi"", ""hey"", ""whelp"", ""whey"", ""well""], ""hewelihylo""
+    OUTPUT:
+    hewelihylo
+    he..l...lo
+    h....i
+    he.....y
+    ..wel...l
+
+    INPUT: [""aaa""], ""bbbaaa""
+    OUTPUT:
+    bbbaaa
+    ...aaa
+    """"""
+    all_results = []
+    for word in words:
+        last_letter = 0
+        word_result = []
+        for letter in word:
+            for i in range(last_letter, len(bucket)):
+                if bucket[i] == letter and not i in word_result:
+                    last_letter = i
+                    word_result = word_result + [i]
+                    break
+        if len(word_result) != len(word):
+            word_result = ""Not buildable.""
+        word_result = [word_result]
+        all_results = all_results + word_result
+    print(bucket)
+    for result in all_results:
+        if result != ""Not buildable."":
+            last_printed_letter = -1
+            for i in result:
+                for j in range(i-last_printed_letter-1):
+                    print('.', end='')
+                print(bucket[i], end='')
+                last_printed_letter = i
+            print('')
+
+# # Uncomment the following lines to test your algorithm. The output should perfectly match the given examples.
+word_builder([""pup"", ""pupper"", ""puppies"", ""pups""], ""ppupppsuer"")
+word_builder([""hello"", ""hi"", ""hey"", ""whelp"", ""whey"", ""well""], ""hewelihylo"")
+word_builder([""aaa""], ""bbbaaa"")
+""",2023-11-28 13:05:04.971017+00:00,2023-11-28 13:06:56.357081+00:00,0:01:51.386064,True,"""Somewhat Difficult""","""Strongly Disagree""","""Strongly Agree""",
