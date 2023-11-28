@@ -1,465 +1,855 @@
 <!-- templates/duck_code_editor/survey.html -->
-{% extends 'duck_exp/base.html' %} 
-{% block content %}
-{% comment %} add line between topics {% endcomment %}
+{% extends 'duck_exp/base.html' %} {% block content %} {% comment %} add line
+between topics {% endcomment %}
 <div class="container">
-    <h2>Post-Study Questionnaire</h2>    
-    <form method="post" action="">
-        {% csrf_token %}
-        <h5>We would like to ask you some questions about your experience with rubber duck debugging:</h5>
-        <div class="likert-question">
-            <p>1. Talking to the rubber duck helped me complete the debugging tasks</p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="perception_q1" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="perception_q1" value="Somewhat Disagree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="perception_q1" value="Neutral" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="perception_q1" value="Somewhat Agree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Stronlgy Agree</span>
-                <input type="radio" name="perception_q1" value="Stronlgy Agree" required />
-                </label>
-            </div>
-            <p>2. Talking to the rubber duck did not impact my debugging performance.</p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="perception_q2" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="perception_q2" value="Somewhat Disagree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="perception_q2" value="Neutral" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="perception_q2" value="Somewhat Agree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Stronlgy Agree</span>
-                <input type="radio" name="perception_q2" value="Stronlgy Agree" required />
-                </label>
-            </div>
-            <p>3. Talking to the rubber duck improved my debugging performance.
-            </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="perception_q3" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="perception_q3" value="Somewhat Disagree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="perception_q3" value="Neutral" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="perception_q3" value="Somewhat Agree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Stronlgy Agree</span>
-                <input type="radio" name="perception_q3" value="Stronlgy Agree" required />
-                </label>
-            </div>
-            <p>4. Talking to the rubber duck improved my ability to think critically about my decisions while debugging.
-            </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="perception_q4" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="perception_q4" value="Somewhat Disagree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="perception_q4" value="Neutral" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="perception_q4" value="Somewhat Agree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Stronlgy Agree</span>
-                <input type="radio" name="perception_q4" value="Stronlgy Agree" required />
-                </label>
-            </div>
-            <p>5. Talking to the rubber duck did not influence my thought process while debugging.
-            </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="perception_q5" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="perception_q5" value="Somewhat Disagree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="perception_q5" value="Neutral" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="perception_q5" value="Somewhat Agree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Stronlgy Agree</span>
-                <input type="radio" name="perception_q5" value="Stronlgy Agree" required />
-                </label>
-            </div>
-            <p>6. Talking to the rubber duck made me more confident about my decisions during debugging.
-            </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="perception_q6" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="perception_q6" value="Somewhat Disagree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="perception_q6" value="Neutral" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="perception_q6" value="Somewhat Agree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Stronlgy Agree</span>
-                <input type="radio" name="perception_q6" value="Stronlgy Agree" required />
-                </label>
-            </div>
-            <p>7. Talking to the rubber duck distracted me from debugging.
-            </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="perception_q7" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="perception_q7" value="Somewhat Disagree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="perception_q7" value="Neutral" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="perception_q7" value="Somewhat Agree" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Stronlgy Agree</span>
-                <input type="radio" name="perception_q7" value="Stronlgy Agree" required />
-                </label>
-            </div>
-            <p>8. How often do you use rubber duck debugging outside of this study? </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Never</span>
-                <input type="radio" name="survey_q1" value="Never" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Rarely</span>
-                <input type="radio" name="survey_q1" value="Rarely" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Sometimes</span>
-                <input type="radio" name="survey_q1" value="Sometimes" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Frequently</span>
-                <input type="radio" name="survey_q1" value="Frequently" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Always</span>
-                <input type="radio" name="survey_q1" value="Always" required />
-                </label>
-            </div>
-            <p>9. I was comfortable using rubber duck debugging.</p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="survey_q2" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="survey_q2" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="survey_q2" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="survey_q2" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="survey_q2" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>10. Is there anything else you want to tell us (feedback, experiences, suggestions…)?</p>
-            <textarea name="survey_q3" rows="4" cols="50" style="margin-bottom: 30px;"></textarea>
-        </div>
-        <div class="horizontal-line"></div>
-        <h5>Finally, we want you to complete the short version of the Big Five Inventory, a personality test:</h5>
-        <div class="likert-question">
-            <p>1. I see myself as someone who is reserved.</p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q1" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q1" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q1" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q1" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q1" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>2. I see myself as someone who is generally trusting.</p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q2" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q2" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q2" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q2" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q2" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>3. I see myself as someone who tends to be lazy.</p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q3" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q3" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q3" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q3" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q3" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>4. I see myself as someone who is relaxed, handles stress well.</p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q4" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q4" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q4" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q4" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q4" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>5. I see myself as someone who has few artistic interests.          </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q5" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q5" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q5" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q5" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q5" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>6. I see myself as someone who is outgoing, sociable.          </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q6" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q6" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q6" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q6" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q6" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>7. I see myself as someone who tends to find fault with others.          </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q7" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q7" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q7" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q7" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q7" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>8. I see myself as someone who does a thorough job.          </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q8" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q8" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q8" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q8" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q8" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>9. I see myself as someone who gets nervous easily.                  </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q9" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q9" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q9" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q9" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q9" value="Strongly Agree" required/>
-                </label>
-            </div>
-            <p>10. I see myself as someone who has an active imagination.                    </p>
-            <div class="likert-options">
-                <label class="likert-option">
-                <span class="likert-label">Strongly Disagree</span>
-                <input type="radio" name="big_five_q10" value="Strongly Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Disagree</span>
-                <input type="radio" name="big_five_q10" value="Somewhat Disagree" required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Neutral</span>
-                <input type="radio" name="big_five_q10" value="Neutral" required />
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Somewhat Agree</span>
-                <input type="radio" name="big_five_q10" value="Somewhat Agree"  required/>
-                </label>
-                <label class="likert-option">
-                <span class="likert-label">Strongly Agree</span>
-                <input type="radio" name="big_five_q10" value="Strongly Agree" required/>
-                </label>
-            </div>
-        </div>
-        <button class="btn btn-secondary" style="display: block" type="submit">
-        Submit
-        </button>
-    </form>
+  <h2>Post-Study Questionnaire</h2>
+  <form method="post" action="">
+    {% csrf_token %}
+    {% if error%}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+    <h5>
+      We would like to ask you some questions about your experience with rubber
+      duck debugging:
+    </h5>
+    <div class="likert-question">
+    {% if missingId %}
+        <p>As there was an error, please insert your study id again (it should like e.g. s9 or Red-Giraffe): </p>
+        <input type="text" name="rewritten" required />
+    {% endif %}
+      <p>
+        1. Talking to the rubber duck helped me complete the debugging tasks
+      </p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="perception_q1"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="perception_q1"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="perception_q1" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="perception_q1"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Stronlgy Agree</span>
+          <input
+            type="radio"
+            name="perception_q1"
+            value="Stronlgy Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>
+        2. Talking to the rubber duck did not impact my debugging performance.
+      </p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="perception_q2"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="perception_q2"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="perception_q2" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="perception_q2"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Stronlgy Agree</span>
+          <input
+            type="radio"
+            name="perception_q2"
+            value="Stronlgy Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>3. Talking to the rubber duck improved my debugging performance.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="perception_q3"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="perception_q3"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="perception_q3" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="perception_q3"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Stronlgy Agree</span>
+          <input
+            type="radio"
+            name="perception_q3"
+            value="Stronlgy Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>
+        4. Talking to the rubber duck improved my ability to think critically
+        about my decisions while debugging.
+      </p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="perception_q4"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="perception_q4"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="perception_q4" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="perception_q4"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Stronlgy Agree</span>
+          <input
+            type="radio"
+            name="perception_q4"
+            value="Stronlgy Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>
+        5. Talking to the rubber duck did not influence my thought process while
+        debugging.
+      </p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="perception_q5"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="perception_q5"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="perception_q5" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="perception_q5"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Stronlgy Agree</span>
+          <input
+            type="radio"
+            name="perception_q5"
+            value="Stronlgy Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>
+        6. Talking to the rubber duck made me more confident about my decisions
+        during debugging.
+      </p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="perception_q6"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="perception_q6"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="perception_q6" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="perception_q6"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Stronlgy Agree</span>
+          <input
+            type="radio"
+            name="perception_q6"
+            value="Stronlgy Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>7. Talking to the rubber duck distracted me from debugging.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="perception_q7"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="perception_q7"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="perception_q7" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="perception_q7"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Stronlgy Agree</span>
+          <input
+            type="radio"
+            name="perception_q7"
+            value="Stronlgy Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>
+        8. How often do you use rubber duck debugging outside of this study?
+      </p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Never</span>
+          <input type="radio" name="survey_q1" value="Never" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Rarely</span>
+          <input type="radio" name="survey_q1" value="Rarely" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Sometimes</span>
+          <input type="radio" name="survey_q1" value="Sometimes" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Frequently</span>
+          <input type="radio" name="survey_q1" value="Frequently" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Always</span>
+          <input type="radio" name="survey_q1" value="Always" required />
+        </label>
+      </div>
+      <p>9. I was comfortable using rubber duck debugging.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="survey_q2"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="survey_q2"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="survey_q2" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="survey_q2"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="survey_q2"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>
+        10. Is there anything else you want to tell us (feedback, experiences,
+        suggestions…)?
+      </p>
+      <textarea
+        name="survey_q3"
+        rows="4"
+        cols="50"
+        style="margin-bottom: 30px"
+      ></textarea>
+    </div>
+    <div class="horizontal-line"></div>
+    <h5>
+      Finally, we want you to complete the short version of the Big Five
+      Inventory, a personality test:
+    </h5>
+    <div class="likert-question">
+      <p>1. I see myself as someone who is reserved.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q1"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q1"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q1" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q1"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q1"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>2. I see myself as someone who is generally trusting.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q2"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q2"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q2" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q2"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q2"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>3. I see myself as someone who tends to be lazy.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q3"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q3"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q3" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q3"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q3"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>4. I see myself as someone who is relaxed, handles stress well.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q4"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q4"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q4" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q4"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q4"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>5. I see myself as someone who has few artistic interests.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q5"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q5"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q5" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q5"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q5"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>6. I see myself as someone who is outgoing, sociable.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q6"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q6"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q6" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q6"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q6"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>7. I see myself as someone who tends to find fault with others.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q7"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q7"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q7" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q7"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q7"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>8. I see myself as someone who does a thorough job.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q8"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q8"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q8" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q8"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q8"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>9. I see myself as someone who gets nervous easily.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q9"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q9"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q9" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q9"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q9"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+      <p>10. I see myself as someone who has an active imagination.</p>
+      <div class="likert-options">
+        <label class="likert-option">
+          <span class="likert-label">Strongly Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q10"
+            value="Strongly Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Disagree</span>
+          <input
+            type="radio"
+            name="big_five_q10"
+            value="Somewhat Disagree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Neutral</span>
+          <input type="radio" name="big_five_q10" value="Neutral" required />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Somewhat Agree</span>
+          <input
+            type="radio"
+            name="big_five_q10"
+            value="Somewhat Agree"
+            required
+          />
+        </label>
+        <label class="likert-option">
+          <span class="likert-label">Strongly Agree</span>
+          <input
+            type="radio"
+            name="big_five_q10"
+            value="Strongly Agree"
+            required
+          />
+        </label>
+      </div>
+    </div>
+    <button class="btn btn-secondary" style="display: block" type="submit">
+      Submit
+    </button>
+  </form>
 </div>
 {% endblock %}

@@ -134,3 +134,7 @@ if not DEBUG:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 1209600
