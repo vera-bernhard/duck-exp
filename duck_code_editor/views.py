@@ -16,6 +16,7 @@ NR_OF_TASKS = 3
 
 TASK_SETS = ['task_set_a', 'task_set_b']
 
+
 def code_editor(request, task_number):
 
     # Retrieve the study_id from the session
@@ -95,24 +96,35 @@ def code_editor(request, task_number):
                     group=task_set_name,
                 )
 
-        # Initialize the form with the code from the current task
-        current_task_instance = Trial_Task.objects.create(
-            task_name=current_task['title'],
-            start_time=timezone.now(),
-            solved_with_duck=False
-        )
-
         current_trial = Trial.objects.get(
             student_id=selected_study_id)
 
+        def create_trial_task(title: str):
+            current_task_instance = Trial_Task.objects.create(
+                task_name=title,
+                start_time=timezone.now(),
+                solved_with_duck=False
+            )
+
+            return current_task_instance
+
         if task_number == 0:
-            current_trial.test_task = current_task_instance
+            if not current_trial.test_task:
+                current_trial_task = create_trial_task(current_task['title'])
+                current_trial.test_task = current_trial_task
+
         elif task_number == 1:
-            current_trial.task_1 = current_task_instance
+            if not current_trial.task_1:
+                current_trial_task = create_trial_task(current_task['title'])
+                current_trial.task_1 = current_trial_task
         elif task_number == 2:
-            current_trial.task_2 = current_task_instance
+            if not current_trial.task_2:
+                current_trial_task = create_trial_task(current_task['title'])
+                current_trial.task_2 = current_trial_task
         elif task_number == 3:
-            current_trial.task_3 = current_task_instance
+            if not current_trial.task_3:
+                current_trial_task = create_trial_task(current_task['title'])
+                current_trial.task_3 = current_trial_task
         else:
             breakpoint()
 
@@ -197,21 +209,29 @@ def code_editor_duck(request, task_number):
         form = CodeSnippetForm(
             initial={'code': current_task.get('code_to_debug', '')})
 
-        # Create a new task instance and set 'start_time'
-        current_task_instance = Trial_Task.objects.create(
-            task_name=current_task['title'],
-            start_time=timezone.now(),
-            solved_with_duck=True
-        )
         current_trial = Trial.objects.get(
             student_id=selected_study_id)
 
+        def create_trial_task(title: str):
+            current_task_instance = Trial_Task.objects.create(
+                task_name=title,
+                start_time=timezone.now(),
+                solved_with_duck=True
+            )
+            return current_task_instance
+
         if task_number == 1:
-            current_trial.task_1_duck = current_task_instance
+            if not current_trial.task_1_duck:
+                current_trial_task = create_trial_task(current_task['title'])
+                current_trial.task_1_duck = current_trial_task
         elif task_number == 2:
-            current_trial.task_2_duck = current_task_instance
+            if not current_trial.task_2_duck:
+                current_trial_task = create_trial_task(current_task['title'])
+                current_trial.task_2_duck = current_trial_task
         elif task_number == 3:
-            current_trial.task_3_duck = current_task_instance
+            if not current_trial.task_3_duck:
+                current_trial_task = create_trial_task(current_task['title'])
+                current_trial.task_3_duck = current_trial_task
         else:
             breakpoint()
 
@@ -444,7 +464,6 @@ def survey(request):
         survey_q2 = request.POST.get('survey_q2')
         survey_q3 = request.POST.get('survey_q3')
 
-
         # Save to your model instance (replace YourModel with the actual name of your model)
         trial.survey_q1 = survey_q1
         trial.survey_q2 = survey_q2
@@ -466,7 +485,7 @@ def survey(request):
         trial.big_five_q8 = big_five_q8
         trial.big_five_q9 = big_five_q9
         trial.big_five_q10 = big_five_q10
-        
+
         trial.save()
 
         return redirect('duck_code_editor:survey_complete')
