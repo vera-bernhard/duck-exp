@@ -39,9 +39,22 @@
     ></script>
     <div id="content">{% block content %}{% endblock %}</div>
     {% if student_id %}
-    <div style="position: absolute; top: 10px; right: 10px; color: lightgray">
+    <div style="position: absolute; top: 10px; right: 10px; color: gray">
       <small> Student ID: {{ student_id }} </small>
     </div>
     {% endif %}
+    <div
+      style="
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+      "
+    >
+      <small>
+        If you encounter any technical difficulties, please contact Vera with
+        <a href="mailto:veralara.bernhard@uzh.ch">veralara.bernhard@uzh.ch</a> or 079 854 32 47.
+      </small>
+    </div>
   </body>
 </html>
